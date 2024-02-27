@@ -17,9 +17,11 @@ int main() {
         arr[i] = arr[i] - master;
         if (arr[i] > 0)
         {
-            check += arr[i] / worker;
-            arr[i] = arr[i] / worker;
-            if (arr[i] > 0) check++;
+            while (arr[i] > 0)
+            {
+                arr[i] -= worker;
+                check++;
+            }
         }
     }
 
