@@ -10,11 +10,11 @@ int main() {
     }
     int master, worker;
     cin >> master >> worker;
-    int check = 0;
+    long long check = 0;
     for (int i = 0; i < n; i++)
     {
-        check++;
         arr[i] = arr[i] - master;
+        check++;
         if (arr[i] > 0)
         {
             if (arr[i] % worker == 0)
