@@ -28,6 +28,5 @@ int main() {
 
     cout << check;
 
-
     return 0;
 }
