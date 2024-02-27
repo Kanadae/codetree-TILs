@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-int arr[1000000];
+int arr[1000001];
 int main() {
     int n;
     cin >> n;
@@ -18,6 +18,7 @@ int main() {
         if (arr[i] > 0)
         {
             check += arr[i] / worker;
+            arr[i] = arr[i] / worker;
             if (arr[i] > 0) check++;
         }
     }
