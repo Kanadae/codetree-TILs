@@ -13,16 +13,16 @@ int main() {
     int len = str.length();
     int r = N / 2;
     int c = r;
-    int cnt = 1;
     int x, y;
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            arr[i][j] = cnt++;
+            cin >> arr[i][j];
         }
     }
     int sum = arr[r][c];
+
     for (int i = 0; i < len; i++)
     {
         if (str[i] == 'F')
