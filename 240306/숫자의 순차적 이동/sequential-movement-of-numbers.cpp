@@ -6,7 +6,7 @@ int main() {
     int dx[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
     int dy[8] = {0, 1, 1, 1, 0, -1, -1, -1};
     int n, m;
-    int turn = 0;
+    int turn = 1;
     cin >> n >> m;
     for (int i = 0; i < n; i++)
     {
@@ -23,8 +23,9 @@ int main() {
     int max;
     int num = 1;
     int sig = 0;
-    while (turn < m)
+    while (turn <= m)
     {
+        num = 1;
         turn++;
         while (num <= n*n)
         {
