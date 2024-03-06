@@ -9,10 +9,11 @@ int main() {
     for (int i = 0; i < len; i++)
     {
         if (A[i] == ')') continue;
-        ch = A[i];
-        for (int j = 1; j < len - 1; j++)
+        for (int j = i + 1; j < len; j++)
         {
-            if (A[j] == ')') sum++;
+            if (A[j] == ')') {
+                sum++;
+            }
         }
     }
     cout << sum;
