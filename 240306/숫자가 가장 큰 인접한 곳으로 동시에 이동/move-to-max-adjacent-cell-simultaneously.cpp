@@ -23,6 +23,7 @@ int main() {
         r -= 1;
         c -= 1;
         ball[r][c] = 1;
+        count[r][c] = 1;
     }
     int d;
     int max = INT_MIN;
@@ -50,7 +51,8 @@ int main() {
                         }
                     }
                 }
-                ball[j][k]--;
+                ball[j][k] = 0;
+                count[j][k]--;
                 count[tx][ty]++;
             }
         }
@@ -61,8 +63,8 @@ int main() {
             {
                 if (count[j][k] == 1) ball[j][k] = 1;
                 else if (count[j][k] > 1){
-                    count[j][k] = 0;
                     ball[j][k] = 0;
+                    count[j][k] = 0;
                 }
             }
         }
