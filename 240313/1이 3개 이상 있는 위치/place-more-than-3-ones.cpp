@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define MAX_N 100
+#define MAX_N 101
 #define DIR_NUM 4
 
 int N;
