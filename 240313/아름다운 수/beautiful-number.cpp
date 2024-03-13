@@ -13,7 +13,7 @@ bool is_beatuiful()
     {
         if (i + seq[i] - 1 >= n) return false;
 
-        for (int j = i; j < n; j++)
+        for (int j = i; j < i + seq[i]; j++)
         {
             if (seq[j] != seq[i]) return false;
         }
