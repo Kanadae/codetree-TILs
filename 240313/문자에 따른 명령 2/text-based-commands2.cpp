@@ -12,7 +12,7 @@ int main() {
     cin >> command;
     int N = command.length();
     for(int i=0; i<N; i++){
-        int dx[DIR_NUM] = {-1, 0, 1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
+        int dx[DIR_NUM] = {1, 0, -1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
         if(command[i] == 'L'){
             dir = (dir + 3) % 4;
         }
