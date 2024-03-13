@@ -29,10 +29,7 @@ int main() {
         int new_x = cur_r + dx[cur_dir];
         int new_y = cur_c + dy[cur_dir];
         if(!InRange(new_x, new_y)){
-            t--;
             cur_dir = (cur_dir + 2) % 4;
-            cur_r = cur_r + dx[cur_dir];
-            cur_c = cur_c + dy[cur_dir];
         }
         else{
             cur_r = new_x;
