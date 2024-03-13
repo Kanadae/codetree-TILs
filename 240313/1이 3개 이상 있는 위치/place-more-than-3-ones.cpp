@@ -15,7 +15,7 @@ void Simulate(int x, int y){
     for(int i=0; i<DIR_NUM; i++){
         int new_x = x + dx[i];
         int new_y = y + dy[i];
-        if(grid[new_x][new_y]) one_num++;
+        if(grid[new_x][new_y] == 1) one_num++;
     }
     if(one_num >= 3) ans++;
 }
