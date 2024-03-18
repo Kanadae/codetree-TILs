@@ -56,6 +56,6 @@ int main() {
     }
     Push(0,0);
     BFS();
-    if (map[n-1][m-1]) cout << "1"; else cout << "0";
+    if (visited[n-1][m-1]) cout << "1"; else cout << "0";
     return 0;
 }
