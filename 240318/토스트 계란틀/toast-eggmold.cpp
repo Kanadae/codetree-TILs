@@ -11,6 +11,7 @@ int dy[2] = { 1, 0 };
 
 void iter(int i, int j)
 {
+    if (egg[i][j] == -1) return;
     cc++;
     sum += egg[i][j];
     egg[i][j] = -1;
@@ -46,6 +47,7 @@ int main() {
     int cnt = 0;
     while (sig)
     {
+        
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
@@ -77,6 +79,7 @@ int main() {
             {
                 if (!check[i][j].size()) continue;
                 iter(i, j);
+                //cout << "sum: " << sum << " " << "CC: " << cc << endl;
                 int aver = sum / cc;
                 for (int ii = 0; ii < n; ii++)
                 {
@@ -92,14 +95,7 @@ int main() {
         cnt++;
         
     }
-/*    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << egg[i][j] << " ";
-        }
-        cout << endl;
-    }*/
+  
     cout << cnt;
     return 0;
 }
