@@ -23,8 +23,8 @@ bool Cango(int x, int y)
 
 void BFS()
 {
-    int dx[2] = {0, 1};
-    int dy[2] = {1, 0};
+    int dx[4] = {0, 1, 0, -1};
+    int dy[4] = {1, 0, -1, 0};
 
     while (!q.empty())
     {
@@ -33,7 +33,7 @@ void BFS()
 
         int x = cur.first;
         int y = cur.second;
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
             int new_x = x + dx[i];
             int new_y = y + dy[i];
