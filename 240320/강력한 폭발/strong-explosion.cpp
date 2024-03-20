@@ -22,7 +22,7 @@ void calc()
             if (x - 1 >= 0) color[x - 1][y] = 1;
             if (x + 2 < n) color[x + 2][y] = 1;
             if (x + 1 < n) color[x + 1][y] = 1;
-         
+
         }
         else if (vec[i] == 1)
         {
@@ -39,8 +39,8 @@ void calc()
             if ((x + 1 < n) && (y + 1 < n)) color[x + 1][y + 1] = 1;
         }
     }
-    
-    
+
+
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -64,7 +64,7 @@ void calc()
 
 void choose(int cur)
 {
-    if (cur == n)
+    if (cur == bomb)
     {
         calc();
         return;
