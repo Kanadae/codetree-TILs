@@ -7,17 +7,19 @@ pair<int,int> line[16];
 vector<int> vec;
 int cnt = 1;
 int max_cnt = 0;
-
+int c = 1;
 void calc()
 {
-	int x = line[0].first;
-	int y = line[0].second;
+	int idx = vec[0];
+	int x = line[idx].first;
+	int y = line[idx].second;
 	int sig;
 	for (int i = 1; i < n; i++)
 	{
-		int tx = line[i].first;
-		int ty = line[i].second;
-		if (tx == x || ty == y) continue;
+		int tidx = vec[i];
+		int tx = line[tidx].first;
+		int ty = line[tidx].second;
+		if (tx == x || ty == y || ty == x || tx == y) continue;
 		if (tx > x) sig = 1; else sig = 0;
 		if (sig)
 		{
