@@ -8,6 +8,7 @@ vector<int> vec;
 int cnt = 1;
 int max_cnt = 0;
 int c = 1;
+int visited[16];
 void calc()
 {
 	int idx = vec[0];
@@ -42,9 +43,12 @@ void choose(int cur)
 
 	for (int i = 0; i < n; i++)
 	{
+		if (visited[i]) continue;
+		visited[i] = true;
 		vec.push_back(i);
 		choose(cur + 1);
 		vec.pop_back();
+		visited[i] = false;
 	}
 }
 
