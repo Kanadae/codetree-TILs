@@ -6,6 +6,7 @@ using namespace std;
 
 int N;
 int grid[MAX_N][MAX_N];
+int copy_grid[MAX_N][MAX_N];
 int temp[MAX_N][MAX_N];
 bool visited[MAX_N][MAX_N];
 
@@ -14,7 +15,13 @@ bool InRange(int x, int y){
 }
 
 void Bomb(int row, int col){
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            copy_grid[i][j] = grid[i][j];
+        }
+    }
     int power = grid[row][col];
+    grid[row][col] = 0;
     for(int i=1; i<power; i++){
         if(row-i>=0) grid[row-i][col] = 0;
         if(row+i< N) grid[row+i][col] = 0;
@@ -24,6 +31,7 @@ void Bomb(int row, int col){
 }
 
 void Gravity(){
+
     for(int col=0; col<N; col++){
         int idx = N-1;
         for(int row=N-1; row>=0; row--){
@@ -58,6 +66,7 @@ int MaxPair(){
     for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
             visited[i][j] = false;
+            grid[i][j] = copy_grid[i][j];
         }
     }
     return pair;
