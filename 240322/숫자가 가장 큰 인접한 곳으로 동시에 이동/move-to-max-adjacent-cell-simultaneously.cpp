@@ -57,6 +57,12 @@ void Simulate(){
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
+            count[i][j] = next_count[i][j];
+        }
+    }
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
             if(count[i][j] >= 2) count[i][j] = 0;
         }
     }
