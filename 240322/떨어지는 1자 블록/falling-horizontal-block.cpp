@@ -6,10 +6,14 @@ using namespace std;
 int n, m, k;
 int grid[MAX_N][MAX_N];
 
+bool InRange(int x, int y){
+    return 0 <= x && x < n && 0 <= y && y < n;
+}
+
 void Fall(int m, int col){
     for(int i=0; i<n; i++){
         for(int j=col; j<col+m; j++){
-            if(grid[i][j] != 0){
+            if(grid[i][j] == 1 || !InRange(i, j)){
                 for(int k=col; k<col+m; k++){
                     grid[i-1][k] = 1;
                 }
