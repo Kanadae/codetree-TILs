@@ -59,6 +59,7 @@ int main() {
     while(Q--){
         cin >> row >> dir;
         Simulate(row-1, Dir(dir));
+        for(int i=0; i<N; i++) visited[i] = false;
     }
 
     for(int i=0; i<N; i++){
