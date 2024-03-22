@@ -8,24 +8,11 @@ int grid[MAX_N][MAX_N];
 int temp[MAX_N][MAX_N];
 
 void Gravity(){
-    // temp 배열 초기화
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            temp[i][j] = 0;
-        }
-    }
     
     for(int col=0; col<n; col++){
         int idx = n-1;
         for(int row=n-1; row>=0; row--){
             if(grid[row][col]!=0) temp[idx--][col] = grid[row][col];
-        }
-    }
-    
-    // grid 배열에 temp 배열의 결과 복사
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            grid[i][j] = temp[i][j];
         }
     }
 }   
@@ -57,7 +44,7 @@ int main() {
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            cout << grid[i][j] << " ";
+            cout << temp[i][j] << " ";
         }
         cout << "\n";
     }
