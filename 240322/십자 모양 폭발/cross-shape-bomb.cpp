@@ -22,10 +22,10 @@ void Bomb(int r, int c){
     grid[r][c] = 0; // 중심점 폭발
     for(int i=1; i<power; i++){
         // 범위 체크 추가
-        grid[r-i][c] = 0;
-        grid[r+i][c] = 0;
-        grid[r][c-i] = 0;
-        grid[r][c+i] = 0;
+        if(r-i >= 0) grid[r-i][c] = 0;
+        if(r+i < n) grid[r+i][c] = 0;
+        if(c-i >= 0) grid[r][c-i] = 0;
+        if(c+i < n) grid[r][c+i] = 0;
     }
 }
 
