@@ -21,7 +21,7 @@ void Simulate(int row, int dir){
     visited[row] = true;
     if(dir == 0) {
         temp = grid[row][M-1];
-        for(int i=M-1; i>=0; i--){
+        for(int i=M-1; i>0; i--){
             grid[row][i] = grid[row][i-1];
         }
         grid[row][0] = temp;
