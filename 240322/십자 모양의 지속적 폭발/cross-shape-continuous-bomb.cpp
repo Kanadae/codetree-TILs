@@ -19,6 +19,7 @@ void Bomb(int col){
                 if(col-j>=0) grid[i][col-j] = 0;
                 if(col+j<n) grid[i][col+j] = 0;
             }
+            break;
         }
     }
 }
