@@ -9,7 +9,7 @@ int grid[MAX_N][MAX_N];
 void Fall(int m, int col){
     for(int i=0; i<n; i++){
         for(int j=col; j<col+m; j++){
-            if(grid[i][j] == 1){
+            if(grid[i][j] != 0){
                 for(int k=col; k<col+m; k++){
                     grid[i-1][k] = 1;
                 }
