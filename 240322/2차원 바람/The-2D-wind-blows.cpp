@@ -22,9 +22,12 @@ void Init(){
 }
 
 void Wind(int r1, int c1, int r2, int c2){
-    if (r1 >= r2 || c1 >= c2) return; // 직사각형의 크기 검증
+    // 조건 검증
+    if (r1 >= r2 || c1 >= c2) return;
     
-    int temp = grid[r1][c2]; // 오른쪽 상단 모서리 값 저장
+    int tempTopRight = grid[r1][c2]; // 오른쪽 상단 모서리 값 저장
+    int tempBottomRight = grid[r2][c2]; // 오른쪽 하단 모서리 값 저장
+    int tempBottomLeft = grid[r2][c1]; // 왼쪽 하단 모서리 값 저장
 
     // 상단 가로줄 오른쪽으로 이동
     for (int col = c2; col > c1; col--) {
@@ -33,23 +36,21 @@ void Wind(int r1, int c1, int r2, int c2){
 
     // 오른쪽 세로줄 아래로 이동
     for (int row = r2; row > r1; row--) {
-        grid[row][c2] = grid[row - 1][c2];
+        grid[row][c2] = row == r1 + 1 ? tempTopRight : grid[row - 1][c2];
     }
-    grid[r1 + 1][c2] = temp; // 저장된 오른쪽 상단 모서리 값 삽입
-
-    int temp2 = grid[r2][c1]; // 왼쪽 하단 모서리 값 저장
 
     // 하단 가로줄 왼쪽으로 이동
     for (int col = c1; col < c2; col++) {
-        grid[r2][col] = grid[r2][col + 1];
+        grid[r2][col] = col == c2 - 1 ? tempBottomRight : grid[r2][col + 1];
     }
-    grid[r2][c2 - 1] = grid[r2 - 1][c2]; // 이전에 이동된 오른쪽 세로줄의 값 삽입
 
     // 왼쪽 세로줄 위로 이동
     for (int row = r1; row < r2; row++) {
-        grid[row][c1] = grid[row + 1][c1];
+        grid[row][c1] = row == r2 - 1 ? tempBottomLeft : grid[row + 1][c1];
     }
-    grid[r2 - 1][c1] = temp2; // 저장된 왼쪽 하단 모서리 값 삽입
+
+    // 오른쪽 상단 모서리 값을 다음 위치로 이동
+    grid[r1 + 1][c2] = tempTopRight;
 }
 
 void Average(int r1, int c1, int r2, int c2){
