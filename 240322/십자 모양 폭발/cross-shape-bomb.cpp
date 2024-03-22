@@ -8,23 +8,39 @@ int grid[MAX_N][MAX_N];
 int temp[MAX_N][MAX_N];
 
 void Gravity(){
+    // temp 배열 초기화
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            temp[i][j] = 0;
+        }
+    }
+    
     for(int col=0; col<n; col++){
         int idx = n-1;
         for(int row=n-1; row>=0; row--){
             if(grid[row][col]!=0) temp[idx--][col] = grid[row][col];
         }
     }
+    
+    // grid 배열에 temp 배열의 결과 복사
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            grid[i][j] = temp[i][j];
+        }
+    }
 }   
 
 void Bomb(int r, int c){
     int power = grid[r][c];
-    grid[r][c] = 0;
+    grid[r][c] = 0; // 중심점 폭발
     for(int i=1; i<power; i++){
-        grid[r-i][c] = 0, grid[r+i][c] = 0;
-        grid[r][c-i] = 0, grid[r][c+i] = 0;
+        // 범위 체크 추가
+        if(r-i >= 0) grid[r-i][c] = 0;
+        if(r+i < n) grid[r+i][c] = 0;
+        if(c-i >= 0) grid[r][c-i] = 0;
+        if(c+i < n) grid[r][c+i] = 0;
     }
 }
-
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -41,7 +57,7 @@ int main() {
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            cout << temp[i][j] << " ";
+            cout << grid[i][j] << " ";
         }
         cout << "\n";
     }
