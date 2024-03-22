@@ -6,7 +6,6 @@ using namespace std;
 int n, r, c;
 int grid[MAX_N][MAX_N];
 int temp[MAX_N][MAX_N];
-int end_of_array;
 
 void Gravity(){
     for(int col=0; col<n; col++){
@@ -36,7 +35,6 @@ int main() {
             cin >> grid[i][j];
         }
     }
-    end_of_array = n;
     cin >> r >> c;
     Bomb(r-1, c-1);
     Gravity();
