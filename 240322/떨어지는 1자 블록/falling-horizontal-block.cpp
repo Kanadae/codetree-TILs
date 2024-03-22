@@ -13,9 +13,15 @@ bool InRange(int x, int y){
 void Fall(int m, int col){
     for(int i=0; i<n; i++){
         for(int j=col; j<col+m; j++){
-            if(grid[i][j] == 1 || !InRange(i+1, j)){
+            if(grid[i][j] == 1){
                 for(int k=col; k<col+m; k++){
                     grid[i-1][k] = 1;
+                }
+                return;
+            }
+            else if(!InRange(i+1, j)){
+                for(int k=col; k<col+m; k++){
+                    grid[i][k] = 1;
                 }
                 return;
             }
