@@ -10,7 +10,7 @@ int answer[12];
 int cnt = 0;
 int min_cnt = 100;
 int total_idx;
-
+int sign = 0;
 bool is_correct()
 {
     int level = 1;
@@ -48,7 +48,7 @@ void choose(int cur)
     {
         if (is_correct())
         {
-            
+            sign = 1;
             cnt = 0;
             for (int i = 1; i <= total_idx; i++)
             {
@@ -111,7 +111,7 @@ int main() {
         answer[i] = cur;    
     }
     choose(1);
-
+    if (sign == 0) cout << m;
     cout << cnt;
     return 0;
 }
