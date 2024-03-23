@@ -14,7 +14,6 @@ bool InRange(int x, int y){
 
 void Bomb(int x, int y){
     int dx[DIR_NUM] = {-1, 0, 1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
-    copy_grid[x][y] = 1;
     for(int i=0; i<DIR_NUM; i++){
         int new_x = x + dx[i] * m;
         int new_y = y + dy[i] * m;
@@ -27,7 +26,7 @@ void Bomb(int x, int y){
 void Simulate(){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            copy_grid[i][j] = 0;
+            copy_grid[i][j] = grid[i][j];
         }
     }
 
