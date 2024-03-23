@@ -48,7 +48,7 @@ int main() {
     cin.tie(0); cout.tie(0);
     cin >> n >> m >> r >> c;
     grid[r-1][c-1] = 1;
-    for(int t=1; t<=m; t++){
+    for(int t=1; t<=1; t++){
         Simulate();
     }
 
