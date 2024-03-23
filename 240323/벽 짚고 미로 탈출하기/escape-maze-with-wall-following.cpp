@@ -33,7 +33,7 @@ bool Move(int x, int y, int cur_dir){
     else if(grid[new_x][new_y] == '.'){
         if(dir == 0 && grid[new_x+1][new_y] != '#') dir = (dir + 1) % 4;
         else if(dir == 1 && grid[new_x][new_y-1] != '#') dir = (dir + 1) % 4;
-        else if(dir == 2 && grid[new_x-1][new_y-1] != '#') dir = (dir + 1) % 4;
+        else if(dir == 2 && grid[new_x-1][new_y] != '#') dir = (dir + 1) % 4;
         else if(dir == 3 && grid[new_x][new_y+1] != '#') dir = (dir + 1) % 4;
         row = new_x + 1, col = new_y + 1;
     }
@@ -51,6 +51,12 @@ int main() {
     }
     while(1){
         if(!Move(row-1, col-1, dir)) break;
+    }
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            cout << visited[i][j] << " ";
+        }
+        cout << "\n";
     }
     cout << ans;
     return 0;
