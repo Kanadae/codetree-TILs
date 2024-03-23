@@ -15,15 +15,15 @@ bool InRange(int x, int y){
 
 bool Move(int x, int y, int cur_dir){
     int dx[DIR_NUM] = {0, 1, 0, -1}, dy[DIR_NUM] = {1, 0, -1, 0};
-    visited[x][y][dir] = true;
+    visited[x][y][cur_dir] = true;
     int new_x = x + dx[cur_dir];
     int new_y = y + dy[cur_dir];
 
-    if(visited[new_x][new_y][dir]){
+    if(visited[x][y][cur_dir]){
         ans = -1;
         return false;
     }
-    
+
     if(grid[new_x][new_y] == '#') {
         dir = (dir + 3) % 4;
         return true;
