@@ -112,6 +112,6 @@ int main() {
     }
     choose(1);
     if (sign == 0) cout << m;
-    cout << cnt;
+    else cout << cnt;
     return 0;
 }
