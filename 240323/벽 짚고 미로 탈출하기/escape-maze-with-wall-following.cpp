@@ -52,12 +52,6 @@ int main() {
     while(1){
         if(!Move(row-1, col-1, dir)) break;
     }
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cout << visited[i][j] << " ";
-        }
-        cout << "\n";
-    }
     cout << ans;
     return 0;
 }
