@@ -19,16 +19,17 @@ bool Move(int x, int y, int cur_dir){
     int new_x = x + dx[cur_dir];
     int new_y = y + dy[cur_dir];
 
+    if(visited[new_x][new_y][dir]){
+        ans = -1;
+        return false;
+    }
+    
     if(grid[new_x][new_y] == '#') {
         dir = (dir + 3) % 4;
         return true;
     }
     ans++;
     if(!InRange(new_x, new_y)) return false;
-    if(visited[new_x][new_y][dir]){
-        ans = -1;
-        return false;
-    }
 
     else if(grid[new_x][new_y] == '.'){
         if(dir == 0 && grid[new_x+1][new_y] != '#') dir = (dir + 1) % 4;
