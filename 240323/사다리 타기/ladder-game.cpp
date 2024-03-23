@@ -19,7 +19,6 @@ bool is_correct()
         int cur = i;
         while (level <= total_idx)
         {
-            
             for (int j = 0; j < choice[level].size(); j++)
             {
                 if (choice[level][j] == cur)
@@ -59,7 +58,6 @@ void choose(int cur)
         }
         return;
     }
-
     for (int i = 0; i < ladder[cur].size(); i++)
     {
         choice[cur].push_back(ladder[cur][i]);
@@ -70,6 +68,7 @@ void choose(int cur)
         choice[cur].pop_back();
         choose(cur + 1);
     }
+    choose(cur + 1);
 }
 
 int main() {
@@ -82,7 +81,6 @@ int main() {
         ladder[y].push_back(x);
         if (ak < y) total_idx = y;
     }
-    
     int turn = 1;
     int level = 1;
     for (int i = 1; i <= n; i++)
