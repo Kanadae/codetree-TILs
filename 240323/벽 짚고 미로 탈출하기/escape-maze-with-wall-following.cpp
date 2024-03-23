@@ -25,7 +25,7 @@ bool Move(int x, int y, int cur_dir){
     }
     ans++;
     if(!InRange(new_x, new_y)) return false;
-    if(visited[new_x][new_y]){
+    if(visited[new_x][new_y] && ans > 100){
         ans = -1;
         return false;
     }
