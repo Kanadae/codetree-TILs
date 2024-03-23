@@ -15,8 +15,8 @@ bool InRange(int x, int y){
 bool Move(int x, int y, int cur_dir){
     int dx[DIR_NUM] = {0, 1, 0, -1}, dy[DIR_NUM] = {1, 0, -1, 0};
     
-    int new_x = x + dx[cur_dir];
-    int new_y = y + dy[cur_dir];
+    int new_x = x-1 + dx[cur_dir];
+    int new_y = y-1 + dy[cur_dir];
 
     if(grid[new_x][new_y] == '#') {
         dir = (dir + 3) % 4;
@@ -45,7 +45,7 @@ int main() {
         }
     }
     while(1){
-        if(!Move(row-1, col-1, dir)) break;
+        if(!Move(row, col, dir)) break;
     }
     cout << ans;
     return 0;
