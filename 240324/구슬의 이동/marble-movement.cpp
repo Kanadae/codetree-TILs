@@ -99,7 +99,9 @@ int main() {
         cin >> x >> y >> dir >> s;
         ball[x-1][y-1].push_back(make_tuple(s, i, Dir(dir)));
     }
-    Simulate();
+    while(t--){
+        Simulate();
+    }
 
     int ans = 0;
     for(int i=0; i<n; i++){
