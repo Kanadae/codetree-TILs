@@ -87,15 +87,16 @@ int main() {
         }
         turn = 2 * N;
         Simulate();
-    }
-    int ans = 0;
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            for(int d=0; d<DIR_NUM; d++){
-                ans += ball[i][j][d];
+
+        int ans = 0;
+        for(int i=0; i<N; i++){
+            for(int j=0; j<N; j++){
+                for(int d=0; d<DIR_NUM; d++){
+                    ans += ball[i][j][d];
+                }
             }
         }
+        cout << ans << "\n";
     }
-    cout << ans;
     return 0;
 }
