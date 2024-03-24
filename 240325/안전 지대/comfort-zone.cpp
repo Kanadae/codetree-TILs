@@ -46,7 +46,7 @@ int main() {
         }
     }
     int maxCnt = 0;
-    int minH = 101;
+    int minH = 1;
     for(int h=1; h<maxHeight; h++){
         int cnt = 0;
         for(int i=0; i<N; i++){
@@ -61,7 +61,6 @@ int main() {
         maxCnt = max(maxCnt, cnt);
         
     }
-    if(maxCnt == 0) cout << "1" << " " << maxCnt; 
-    else cout << minH << " " << maxCnt; 
+    cout << minH << " " << maxCnt; 
     return 0;
 }
