@@ -61,7 +61,7 @@ int main() {
         maxCnt = max(maxCnt, cnt);
         
     }
-    if(maxCnt == 0) cout << "0" << " " << maxCnt; 
+    if(maxCnt == 0) cout << "1" << " " << maxCnt; 
     else cout << minH << " " << maxCnt; 
     return 0;
 }
