@@ -29,7 +29,8 @@ int main() {
         graph[y].push_back(x);
     }
 
+    visited[1] = true;
     bfs(1);
-    cout << --ans;
+    cout << ans;
     return 0;
 }
