@@ -11,6 +11,15 @@ int ball[MAX_N][MAX_N][4];
 int copy_ball[MAX_N][MAX_N][4];
 int turn;
 
+void init(){
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            for(int d=0; d<DIR_NUM; d++){
+                ball[i][j][d] = 0;
+            }
+        }
+    }
+}
 bool InRange(int x, int y){
     return 0 <= x && x < N && 0 <= y && y < N;
 }
@@ -78,12 +87,13 @@ int main() {
     cin.tie(0); cout.tie(0);
     cin >> T;
     while(T--){
+        init();
         cin >> N >> M;
         for(int i=0; i<M; i++){
             int x, y;
             char cur_dir;
             cin >> x >> y >> cur_dir;
-            ball[x-1][y-1][Dir(cur_dir)] += 1;
+            ball[x-1][y-1][Dir(cur_dir)] = 1;
         }
         turn = 2 * N;
         Simulate();
