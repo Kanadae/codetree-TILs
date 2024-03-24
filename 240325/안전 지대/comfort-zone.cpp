@@ -1,89 +1,66 @@
 #include <iostream>
-using namespace std;
-int n,m;
-int map[51][51];
-bool visited[51][51];
-int k = 1;
-int static_k;
-int max_k;
-int area;
-int max_area;
+#include <algorithm>
 
-bool Cango(int x,int y)
-{
-    if (0 > x || x >= n || 0 > y || y >= m) return false;
-    if (visited[x][y]) return false;
-    return true;
+#define MAX 51
+#define DIR_NUM 4
+
+using namespace std;
+
+int N, M;
+int grid[MAX][MAX];
+bool visited[MAX][MAX];
+
+bool InRange(int x, int y){
+    return 0 <= x && x < N && 0 <= y && y < M;
 }
 
-void dfs(int x, int y)
-{
-    int dx[4] = {0,1,0,-1};
-    int dy[4] = {1,0,-1,0};
-    for (int i = 0; i < 4; i++)
-    {
+void init(){
+    for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            visited[i][j] = false;
+        }
+    }
+}
+
+void DFS(int x, int y, int h){
+    int dx[DIR_NUM] = {-1, 0, 1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
+    visited[x][y] = true;
+    for(int i=0; i<DIR_NUM; i++){
         int new_x = x + dx[i];
         int new_y = y + dy[i];
-        if (Cango(new_x,new_y))
-        {
-            visited[new_x][new_y] = true;
-            dfs(new_x, new_y);
+        if(InRange(new_x, new_y) && !visited[new_x][new_y] && grid[new_x][new_y] - h > 0){
+            DFS(new_x, new_y, h);
         }
     }
 }
 
 int main() {
-    cin >> n >> m;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> map[i][j];
-            if (max_k < map[i][j]) max_k = map[i][j];
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cin >> N >> M;
+    int maxHeight = 0;
+    for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            cin >> grid[i][j];
+            maxHeight = max(maxHeight, grid[i][j]);
         }
     }
-    static_k = max_k;
-    max_k = 1;
-    k = 1;
-    while (k <= static_k)
-    {
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < m; j++)
-            {
-                if (map[i][j] <= k)
-                {
-                    visited[i][j] = true;
-                }
+    int maxCnt = 0;
+    int minH = 101;
+    for(int h=1; h<maxHeight; h++){
+        int cnt = 0;
+        for(int i=0; i<N; i++){
+            for(int j=0; j<M; j++){
+                if(visited[i][j] || grid[i][j] - h <= 0) continue;
+                DFS(i, j, h);
+                cnt++;
             }
         }
-
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < m; j++)
-            {
-                if (visited[i][j]) continue;
-                dfs(i,j);
-                area++;
-            }
-        }
-
-        if (max_area < area)
-        {
-            max_area = area;
-            max_k = k;
-        }
-        area = 0;
-        k++;
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < m; j++)
-            {
-                visited[i][j] = false;           }
-        }
+        init();
+        if(maxCnt < cnt) minH = h;
+        maxCnt = max(maxCnt, cnt);
+        
     }
-
-    cout << max_k << " " << max_area;
-
+    cout << minH << " " << maxCnt; 
     return 0;
 }
