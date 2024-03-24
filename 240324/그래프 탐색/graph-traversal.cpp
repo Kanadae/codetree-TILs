@@ -2,8 +2,8 @@
 #include <vector>
 using namespace std;
 int n,m;
-vector<int> graph[1000];
-int visited[1000];
+vector<int> graph[1001];
+int visited[1001];
 int ans = 0;
 void bfs(int cnt)
 {
