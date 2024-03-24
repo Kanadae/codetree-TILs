@@ -1,36 +1,37 @@
 #include <iostream>
 #include <vector>
+
+#define MAX_N 1001
 using namespace std;
-int n,m;
-vector<int> graph[1001];
-int visited[1001];
-int ans = 0;
-void bfs(int cnt)
-{
-    for (int i = 0; i < graph[cnt].size(); i++)
-    {
-        int cur = graph[cnt][i];
-        if(!visited[cur])
-        {
-            ans++;
-            visited[cur] = true;
-            bfs(cur);
+
+int N, M;
+vector<int> graph[MAX_N];
+bool visited[MAX_N];
+int cnt;
+
+void DFS(int vertex){
+    for(int i=0; i<graph[vertex].size(); i++){
+        int cur_v = graph[vertex][i];
+        if(!visited[cur_v]){
+            cnt++;
+            visited[cur_v] = true;
+            DFS(cur_v);
         }
     }
 }
 
 int main() {
-    cin >> n >> m;
-    for (int i = 0; i < m; i++)
-    {
-        int x,y;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cin >> N >> M;
+    for(int i=0; i<M; i++){
+        int x, y;
         cin >> x >> y;
         graph[x].push_back(y);
         graph[y].push_back(x);
     }
-
     visited[1] = true;
-    bfs(1);
-    cout << ans;
+    DFS(1);
+    cout << cnt;
     return 0;
 }
