@@ -104,7 +104,11 @@ int main() {
     int ans = 0;
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(!ball[i][j].empty()) ans++;
+            if(!ball[i][j].empty()) {
+                for(int k=0; k<(int)ball[i][j].size(); k++){
+                    ans++;
+                }
+            }
         }
     }
     cout << ans;
