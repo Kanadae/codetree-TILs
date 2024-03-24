@@ -20,6 +20,7 @@ void DFS(int x, int y){
         if(InRange(new_x, new_y) && grid[new_x][new_y]){
             visited[new_x][new_y] = true;
             DFS(new_x, new_y);
+            visited[new_x][new_y] = false;
         }
     }
 }
