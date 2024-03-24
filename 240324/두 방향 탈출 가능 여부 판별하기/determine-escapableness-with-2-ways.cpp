@@ -17,7 +17,7 @@ void DFS(int x, int y){
     for(int i=0; i<2; i++){
         int new_x = x + dx[i];
         int new_y = y + dy[i];
-        if(InRange(new_x, new_y) && !grid[new_x][new_y]){
+        if(InRange(new_x, new_y) && grid[new_x][new_y]){
             visited[new_x][new_y] = true;
             DFS(new_x, new_y);
         }
