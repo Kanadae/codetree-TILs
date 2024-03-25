@@ -53,6 +53,7 @@ int main() {
     {
         int x,y;
         cin >> x >> y;
+        x--; y--;
         q.push(make_pair(x,y));
         bfs();
     }
