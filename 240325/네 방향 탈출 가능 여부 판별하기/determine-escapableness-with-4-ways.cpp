@@ -9,7 +9,7 @@ bool visited[MAX_N][MAX_N];
 queue<pair<int, int>> q;
 
 bool InRange(int x, int y){
-    return 0 <= x && x < n && 0 <= y && y < n;
+    return 0 <= x && x < n && 0 <= y && y < m;
 }
 
 void BFS(){
