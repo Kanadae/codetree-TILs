@@ -7,7 +7,7 @@ int n, m, t;
 int map[201][201];
 int visited[201][201];
 int heat;
-
+int rest;
 bool canGo(int x, int y)
 {
     if (0 > x || x >= n || 0 > y || y >= m) return false;
@@ -63,10 +63,21 @@ int main() {
                 heat = 0;
                 q.push(make_pair(i,j));
                 bfs();
+                if (heat != 0) rest = heat;
+                
+                if (heat == 0) break;
                 t++;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    visited[i][j]= false;
+                }
             }
         }
     }
-    cout << t << " " << heat;
+    cout << t << " " << rest;
     return 0;
 }
