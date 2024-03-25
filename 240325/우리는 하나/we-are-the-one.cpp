@@ -36,6 +36,8 @@ void bfs()
                 if (diff >= u && d >= diff)
                 {
                     city++;
+                    cout << new_x << " " << new_y << " " << x << " " << y << endl;
+                    cout << city << endl;
                     visited[new_x][new_y] = true;
                     q.push(make_pair(new_x, new_y));
                 }
@@ -55,7 +57,11 @@ void choose(int cur, int x, int y)
         {
             int start_x = vec[i].first;
             int start_y = vec[i].second;
-            
+            if (!visited[start_x][start_y])
+            {
+                city++;
+                visited[start_x][start_y] = true;
+            }
             q.push(make_pair(start_x, start_y));
             bfs();
         }
@@ -71,7 +77,16 @@ void choose(int cur, int x, int y)
         return;
     }
     if (y == n) {
-        x++; y = 0;
+        if (x < n - 1) {
+            x++;
+            y = 0;
+        } else
+        {
+            x = n;
+            y = n;
+            choose(cur, n, n);
+            return;
+        }
     }
     vec.push_back(make_pair(x, y));
     choose(cur + 1, x, y + 1);
