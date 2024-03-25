@@ -18,10 +18,10 @@ void BFS(){
 
     while(!q.empty()){
         pair<int, int> cur_pos = q.front();
-        q.pop();
-
         int x = cur_pos.first;
         int y = cur_pos.second;
+        q.pop();
+        
         for(int i=0; i<4; i++){
             int new_x = x + dx[i];
             int new_y = y + dy[i];
@@ -44,7 +44,6 @@ int main() {
     visited[0][0] = true;
     q.push(make_pair(0, 0));
     BFS();
-    if(visited[n-1][m-1]) cout << "1";
-    else cout << "0";
+    cout << visited[n-1][m-1];
     return 0;
 }
