@@ -11,7 +11,6 @@ int n, k;
 int grid[MAX_N][MAX_N];
 bool visited[MAX_N][MAX_N];
 int step[MAX_N][MAX_N];
-int temp[MAX_N][MAX_N];
 
 bool InRange(int x, int y){
     return 0 <= x && x < n && 0 <= y && y < n;
@@ -30,53 +29,9 @@ void BFS(){
             int new_x = x + dx[i];
             int new_y = y + dy[i];
             if(InRange(new_x, new_y) && !visited[new_x][new_y] && grid[new_x][new_y] != 0){
-                temp[new_x][new_y] = temp[x][y] + 1;
+                step[new_x][new_y] = step[x][y] + 1;
                 visited[new_x][new_y] = true;
                 q.push(make_pair(new_x, new_y));
-            }
-        }
-    }
-}
-
-void init(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            visited[i][j] = false;
-            temp[i][j] = 0;
-        }
-    }
-}
-
-void init2(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            step[i][j] = 10001;
-        }
-    }
-}
-
-void FindMinTime(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            if(grid[i][j]){
-                step[i][j] = min(step[i][j], temp[i][j]);
-            }
-            else step[i][j] = -1;
-        }
-    }
-}
-
-void Simulate(){
-    init2();
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            if(grid[i][j] == 2){
-                q.push(make_pair(i, j));
-                visited[i][j] = true;
-                temp[i][j] = 0;
-                BFS();
-                FindMinTime();
-                init();
             }
         }
     }
@@ -89,14 +44,20 @@ int main() {
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             cin >> grid[i][j];
+            if(grid[i][j] == 2){
+                q.push(make_pair(i, j));
+                visited[i][j] = true;
+            }
         }
     }
 
-    Simulate();
+    BFS();
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(grid[i][j] != 2 && step[i][j] == 0)
+            if(!grid[i][j])
+                cout << "-1 ";
+            else if(grid[i][j] != 2 && step[i][j] == 0)
                 cout << "-2 ";
             else
                 cout << step[i][j] << " ";
