@@ -9,7 +9,6 @@ int grid[MAX_N][MAX_N];
 bool visited[MAX_N][MAX_N];
 int ans;
 int area, cnt;
-bool flag = true;
 
 bool InRange(int x, int y){
     return 0 <= x && x < n && 0 <= y && y < n;
@@ -18,17 +17,7 @@ bool InRange(int x, int y){
 void DFS(int x, int y, int target){
     int dx[DIR_NUM] = {-1, 0, 1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
     visited[x][y] = true;
-    flag = true;
     area++;
-
-    for(int i=0; i<DIR_NUM; i++){
-        int new_x = x + dx[i];
-        int new_y = y + dy[i];
-        if(InRange(new_x, new_y) && !(grid[new_x][new_y] == target)){
-            flag = false;
-        }
-    }
-    if(flag) cnt++;
 
     for(int i=0; i<DIR_NUM; i++){
         int new_x = x + dx[i];
@@ -54,6 +43,7 @@ int main() {
             area = 0;
             int target = grid[i][j];
             DFS(i, j, target);
+            if(area >= 4) cnt++;
             ans = max(ans, area);
         }
     }
