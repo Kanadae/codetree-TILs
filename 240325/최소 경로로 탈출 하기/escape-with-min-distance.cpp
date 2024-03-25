@@ -46,6 +46,7 @@ int main() {
     }
     visited[0][0] = true;
     q.push(make_pair(0, 0));
+    step[n-1][m-1] = -1;
     BFS();
     cout << step[n-1][m-1];
     return 0;
