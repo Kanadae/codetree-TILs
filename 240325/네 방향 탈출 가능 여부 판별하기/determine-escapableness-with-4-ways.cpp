@@ -21,7 +21,7 @@ void BFS(){
         int x = cur_pos.first;
         int y = cur_pos.second;
         q.pop();
-        
+
         for(int i=0; i<4; i++){
             int new_x = x + dx[i];
             int new_y = y + dy[i];
@@ -37,7 +37,7 @@ int main() {
     cin.tie(0); cout.tie(0);
     cin >> n >> m;
     for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
+        for(int j=0; j<m; j++){
             cin >> grid[i][j];
         }
     }
