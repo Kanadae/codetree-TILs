@@ -41,6 +41,7 @@ int main() {
             cin >> grid[i][j];
         }
     }
+    visited[0][0] = true;
     q.push(make_pair(0, 0));
     BFS();
     if(visited[n-1][m-1]) cout << "1";
