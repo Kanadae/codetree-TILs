@@ -36,6 +36,7 @@ void BFS(){
                 step[new_x][new_y] = step[x][y] + 1;
                 if(grid[new_x][new_y] == 3) {
                     ans[temp_pos.first][temp_pos.second] = step[new_x][new_y];
+                    while(!q.empty()) q.pop();
                     return;
                 }
                 q.push(make_pair(new_x, new_y));
