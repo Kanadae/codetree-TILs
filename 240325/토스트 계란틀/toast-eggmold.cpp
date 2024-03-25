@@ -58,7 +58,8 @@ int main() {
     }
     int sum = 0;
     int div = 0;
-    do
+    flag = 1;
+    while (flag)
     {
         flag = 0;
         for (int i = 0; i < n; i++)
@@ -93,8 +94,7 @@ int main() {
             }
         }
         if (flag == 1) ans++;
-        flag = 0;
-    } while (flag);
+    }
     cout << ans;
     return 0;
 }
