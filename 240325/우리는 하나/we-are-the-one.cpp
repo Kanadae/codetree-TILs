@@ -55,11 +55,7 @@ void choose(int cur, int x, int y)
         {
             int start_x = vec[i].first;
             int start_y = vec[i].second;
-            if (!visited[start_x][start_y])
-            {
-                city++;
-                visited[start_x][start_y] = true;
-            }
+            
             q.push(make_pair(start_x, start_y));
             bfs();
         }
