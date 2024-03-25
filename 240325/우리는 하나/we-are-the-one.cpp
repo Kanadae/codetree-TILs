@@ -36,8 +36,6 @@ void bfs()
                 if (diff >= u && d >= diff)
                 {
                     city++;
-                    cout << new_x << " " << new_y << " " << x << " " << y << endl;
-                    cout << city << endl;
                     visited[new_x][new_y] = true;
                     q.push(make_pair(new_x, new_y));
                 }
