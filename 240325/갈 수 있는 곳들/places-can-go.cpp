@@ -54,6 +54,11 @@ int main() {
         int x,y;
         cin >> x >> y;
         x--; y--;
+        if (!visited[x][y])
+        {
+            ans++;
+            visited[x][y] = true;
+        }
         q.push(make_pair(x,y));
         bfs();
     }
