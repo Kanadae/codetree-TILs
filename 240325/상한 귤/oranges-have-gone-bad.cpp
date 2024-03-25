@@ -67,12 +67,12 @@ void FindMinTime(){
 }
 
 void Simulate(){
+    init2();
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             if(grid[i][j] == 2){
                 q.push(make_pair(i, j));
                 visited[i][j] = true;
-                init2();
                 temp[i][j] = 0;
                 BFS();
                 FindMinTime();
@@ -96,7 +96,7 @@ int main() {
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(grid[i][j] != 2 && step[i][j] == 10001)
+            if(grid[i][j] != 2 && step[i][j] == 0)
                 cout << "-2 ";
             else
                 cout << step[i][j] << " ";
