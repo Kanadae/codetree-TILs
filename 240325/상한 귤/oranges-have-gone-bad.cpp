@@ -29,7 +29,7 @@ void BFS(){
         for(int i=0; i<DIR_NUM; i++){
             int new_x = x + dx[i];
             int new_y = y + dy[i];
-            if(InRange(new_x, new_y) && !visited[new_x][new_y] && grid[new_x][new_y] == 1){
+            if(InRange(new_x, new_y) && !visited[new_x][new_y] && grid[new_x][new_y] != 0){
                 temp[new_x][new_y] = temp[x][y] + 1;
                 visited[new_x][new_y] = true;
                 q.push(make_pair(new_x, new_y));
