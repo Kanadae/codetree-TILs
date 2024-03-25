@@ -49,6 +49,7 @@ int main() {
     q.push(make_pair(r1-1, c1-1));
     step[r2-1][c2-1] = -1;
     bfs();
-    cout << step[r2-1][c2-1];
+    if(r1==r2 && c1==c2) cout << "0";
+    else cout << step[r2-1][c2-1];
     return 0;
 }
