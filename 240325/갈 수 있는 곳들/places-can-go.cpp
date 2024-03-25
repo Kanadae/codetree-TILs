@@ -21,6 +21,7 @@ void BFS(){
         pair<int, int> cur_pos = q.front();
         int x = cur_pos.first;
         int y = cur_pos.second;
+        q.pop();
 
         for(int i=0; i<DIR_NUM; i++){
             int new_x = x + dx[i];
@@ -48,8 +49,8 @@ int main() {
         cin >> r >> c;
         visited[r-1][c-1] = true;
         q.push(make_pair(r-1, c-1));
-        BFS();
     }
+    BFS();
     int ans = 0;
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
