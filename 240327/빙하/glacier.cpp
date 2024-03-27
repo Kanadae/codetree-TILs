@@ -64,7 +64,6 @@ int main() {
     int final_melt = 0;
     int time = 0;
     bool remelt = true;
-
     while(1){
         if(!remelt) break;
         remelt = false;
@@ -83,9 +82,15 @@ int main() {
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(visited[i][j]) grid[i][j] = 0;
+            }
+        }
+
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
                 if(grid[i][j]) remelt = true;
             }
         }
+
     }
     cout << time << " " << final_melt;
     return 0;
