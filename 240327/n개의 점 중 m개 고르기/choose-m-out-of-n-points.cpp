@@ -12,8 +12,8 @@ bool visited[21];
 
 int Calc(){
     int max_val = 0;
-    for(int i=0; i<m; i++){
-        for(int j=i+1; j<m; j++){
+    for(int i=0; i<n; i++){
+        for(int j=i+1; j<n; j++){
             if(visited[i] && visited[j]){
                 int x1 = num[i].first;
                 int y1 = num[i].second;
