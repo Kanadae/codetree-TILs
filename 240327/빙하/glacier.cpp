@@ -69,12 +69,11 @@ int main() {
         if(!remelt) break;
         remelt = false;
         time++;
-
+        int cnt = 0;
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(grid[i][j]) {
                     Melt(i, j); 
-                    int cnt = 0;
                     cnt++;
                     final_melt = cnt;
                 }
