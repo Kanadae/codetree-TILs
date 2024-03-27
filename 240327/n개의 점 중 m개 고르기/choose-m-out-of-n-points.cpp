@@ -19,7 +19,7 @@ int Calc(){
                 int y1 = num[i].second;
                 int x2 = num[j].first;
                 int y2 = num[j].second;
-                int dist = pow(x1-x2, 2) + pow(y1-y2, 2);
+                int dist = sqrt(pow(x1-x2, 2) + pow(y1-y2, 2));
                 max_val = max(max_val, dist);
             }
         }
@@ -52,6 +52,6 @@ int main() {
         num.push_back(make_pair(x, y));
     }
     dfs(0, 0);
-    cout << ans;
+    cout << ans * ans;
     return 0;
 }
