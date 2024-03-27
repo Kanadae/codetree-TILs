@@ -19,7 +19,7 @@ int Calc(){
                 int y1 = num[i].second;
                 int x2 = num[j].first;
                 int y2 = num[j].second;
-                int dist = sqrt(pow(x1-x2, 2) + pow(y1-y2, 2));
+                int dist = pow(x1-x2, 2) + pow(y1-y2, 2);
                 max_val = max(max_val, dist);
             }
         }
@@ -46,12 +46,12 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
     cin >> n >> m;
-    for(int i=0; i<m; i++){
+    for(int i=0; i<n; i++){
         int x, y;
         cin >> x >> y;
         num.push_back(make_pair(x, y));
     }
     dfs(0, 0);
-    cout << ans * ans;
+    cout << ans;
     return 0;
 }
