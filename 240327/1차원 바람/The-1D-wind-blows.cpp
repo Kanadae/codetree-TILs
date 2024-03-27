@@ -1,92 +1,73 @@
 #include <iostream>
+
+#define MAX 101
 using namespace std;
-int n, m, q;
-int map[101][101];
-int sig = 0; // 0이면 left, 1이면 right
 
-void left_shift(int r) // 왼쪽에서 부는 바람
-{
-    int temp = map[r][m - 1];
-    for (int i = m - 1; i > 0; i--)
-    {
-        swap(map[r][i], map[r][i - 1]);
-    }
-    map[r][0] = temp;
+int N, M, Q;
+int grid[MAX][MAX];
+bool visited[MAX];
+
+bool InRange(int x){
+    return 0 <= x && x < N;
 }
 
-void right_shift(int r) // 오른쪽에서 부는 바람
-{
-    int temp = map[r][0];
-    for (int i = 0; i < m - 1; i++)
-    {
-        swap(map[r][i], map[r][i + 1]);
-    }
-    map[r][m - 1] = temp;
+int Dir(char dir){
+    if(dir == 'L') return 0;
+    else return 1;
 }
 
-bool Same(int r, int rr)
-{
-    for (int i = 0; i < m; i++)
-    {
-        if (map[r][i] == map[rr][i]) return true;
+void Simulate(int row, int dir){
+    int temp;
+    visited[row] = true;
+    if(dir == 0) {
+        temp = grid[row][M-1];
+        for(int i=M-1; i>0; i--){
+            grid[row][i] = grid[row][i-1];
+        }
+        grid[row][0] = temp;
     }
-    return false;
+    else {
+        temp = grid[row][0];
+        for(int i=0; i<M; i++){
+            grid[row][i] = grid[row][i+1];
+        }
+        grid[row][M-1] = temp;
+    }
+
+    for(int i=0; i<M; i++){
+        if(InRange(row-1) && !visited[row-1] && grid[row][i] == grid[row-1][i]){
+            Simulate(row-1, ~dir);
+        }
+        else if(InRange(row+1) && !visited[row+1] && grid[row][i] == grid[row+1][i]){
+            Simulate(row+1, ~dir);
+        }
+    }
 }
 
 int main() {
-    cin >> n >> m >> q;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> map[i][j];
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cin >> N >> M >> Q;
+    for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            cin >> grid[i][j];
         }
     }
+    int row;
+    char dir;
 
-    while (q--)
-    {
-        int wind;
-        char direction;
-        cin >> wind >> direction;
-        wind--;
-        if (direction == 'L')
-        {
-            sig = 0;
-            left_shift(wind);
-        }
-        else if (direction == 'R') {
-            sig = 1;
-            right_shift(wind);
-        }
-
-        int up = wind;
-        int up_sig = sig;
-        // Same(wind, wind-1) is true면 wind-1에 ~sig 방향으로 바람
-        while (up - 1 >= 0 && Same(up, up - 1))
-        {
-            if (up_sig == 0) up_sig = 1; else up_sig = 0;
-            if (up_sig == 0) left_shift(up - 1);
-            else right_shift(up - 1);
-            up--;
-        }
-
-        while (wind + 1 < n && Same(wind, wind + 1))
-        {
-            if (sig == 0) sig = 1; else sig = 0;
-            if (sig == 0) left_shift(wind + 1);
-            else right_shift(wind + 1);
-            wind++;
-        }
-
+    while(Q--){
+        cin >> row >> dir;
+        for(int i=0; i<N; i++) visited[i] = false;
+        Simulate(row-1, Dir(dir));
+        
     }
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cout << map[i][j] << " ";
+    for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            cout << grid[i][j] << " ";
         }
         cout << "\n";
-    }
+    } 
     return 0;
 }
