@@ -26,8 +26,8 @@ int Calc(){
         else if(bomb[i] == 1){
             if(x-1 >= 0) bombed[x-1][y] = 1; 
             if(y-1 >= 0) bombed[x][y-1] = 1; 
-            if(x+1 < n) bombed[x][y+1] = 1;
-            if(y+1 < n) bombed[x+1][y] = 1; 
+            if(y+1 < n) bombed[x][y+1] = 1;
+            if(x+1 < n) bombed[x+1][y] = 1; 
         }
         else if(bomb[i] == 2){
             if(x-1 >= 0 && y-1 >= 0) bombed[x-1][y-1] = 1;
