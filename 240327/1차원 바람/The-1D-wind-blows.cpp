@@ -36,10 +36,10 @@ void Simulate(int row, int dir){
 
     for(int i=0; i<M; i++){
         if(InRange(row-1) && !visited[row-1] && grid[row][i] == grid[row-1][i]){
-            Simulate(row-1, ~dir);
+            Simulate(row-1, !dir);
         }
         else if(InRange(row+1) && !visited[row+1] && grid[row][i] == grid[row+1][i]){
-            Simulate(row+1, ~dir);
+            Simulate(row+1, !dir);
         }
     }
 }
