@@ -16,6 +16,10 @@ bool InRange(int x, int y){
 }
 
 void BFS(){
+
+    q.push(make_pair(0, 0));
+    visited[0][0] = true;
+
     while(!q.empty()){
         int dx[DIR_NUM] = {-1, 0, 1, 0}, dy[DIR_NUM] = {0, 1, 0, -1};
 
@@ -57,8 +61,6 @@ int main() {
         }
     }
 
-    q.push(make_pair(0, 0));
-    visited[0][0] = true;
     BFS();
 
     int final_melt = 0;
@@ -82,6 +84,7 @@ int main() {
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(visited[i][j]) grid[i][j] = 0;
+                visited[i][j] = 0;
             }
         }
 
@@ -91,6 +94,7 @@ int main() {
             }
         }
 
+        BFS();
     }
     cout << time << " " << final_melt;
     return 0;
