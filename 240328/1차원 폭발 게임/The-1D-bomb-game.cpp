@@ -14,7 +14,11 @@ int main() {
     }
 
     sig = 1;
-
+    if (m==1)
+    {
+        cout << 0;
+        return 0;
+    }
     int cont;
     while (sig)
     {
