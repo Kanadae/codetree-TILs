@@ -13,7 +13,7 @@ int main() {
             cin >> map[i][j];
         }
     }
-    int stop = n - 1;
+    int stop = n;
     int sig = 0;
     for (int i = 0; i < n; i++)
     {
