@@ -22,11 +22,11 @@ void FindDir(int start){
     else if(start / n == 2){
         dir = 2;
         x = n-1;
-        y = start % n;
+        y = (n - (start % n)) % n;
     }
     else if(start / n == 3){
         dir = 3;
-        x = start % n;
+        x = (n - (start % n)) % n;
         y = 0;
     }
 }
