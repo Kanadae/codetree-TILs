@@ -19,6 +19,9 @@ int Dir(char dir){
 void Simulate(int row, int dir){
     int temp;
     visited[row] = true;
+    bool up = false;
+    bool down = false;
+
     if(dir == 0) {
         temp = grid[row][M-1];
         for(int i=M-1; i>0; i--){
@@ -35,11 +38,15 @@ void Simulate(int row, int dir){
     }
 
     for(int i=0; i<M; i++){
-        if(InRange(row-1) && !visited[row-1] && grid[row][i] == grid[row-1][i]){
-            Simulate(row-1, !dir);
+        if(grid[row][i] == grid[row-1][i]) up = true;
+        if(grid[row][i] == grid[row+1][i]) down = true;
+    }
+    for(int i=0; i<M; i++){
+        if(InRange(row-1) && !visited[row-1] && up){
+            Simulate(row-1, ~dir);
         }
-        else if(InRange(row+1) && !visited[row+1] && grid[row][i] == grid[row+1][i]){
-            Simulate(row+1, !dir);
+        else if(InRange(row+1) && !visited[row+1] && down){
+            Simulate(row+1, ~dir);
         }
     }
 }
