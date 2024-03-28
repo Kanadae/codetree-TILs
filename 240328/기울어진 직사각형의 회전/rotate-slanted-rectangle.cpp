@@ -4,7 +4,7 @@
 using namespace std;
 int n;
 int grid[MAX_N][MAX_N];
-int arr[MAX_N];
+int arr[MAX_N * 4];
 
 int main() {
     ios_base::sync_with_stdio(0);
