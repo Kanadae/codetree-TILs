@@ -17,7 +17,7 @@ int main() {
     int sig = 0;
     for (int i = 0; i < n; i++)
     {
-        for (int j = r; j < length; j++)
+        for (int j = r; j < r+length; j++)
         {
             if (map[i][j] == 1)
             {
