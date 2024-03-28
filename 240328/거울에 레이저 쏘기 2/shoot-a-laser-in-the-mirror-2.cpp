@@ -22,11 +22,11 @@ void FindDir(int start){
     else if(start / n == 2){
         dir = 2;
         x = n-1;
-        y = (n - (start % n)) % n;
+        y = (n - 1) - (start % n);
     }
     else if(start / n == 3){
         dir = 3;
-        x = (n - (start % n)) % n;
+        x = (n - 1) - (start % n);
         y = 0;
     }
 }
@@ -39,16 +39,6 @@ int Move(int start){
     FindDir(start);
     int cnt = 1;
     int dx[DIR_NUM] = {1, 0, -1, 0}, dy[DIR_NUM] = {0, -1, 0, 1};
-
-    if(grid[x][y] == '\\'){
-        dir = 3 - dir;
-    }
-    else if(grid[x][y] == '/'){
-        if(dir == 0) dir = 1;
-        else if(dir == 1) dir = 0;
-        else if(dir == 2) dir = 3;
-        else if(dir == 3) dir = 2;
-    }
 
     while(1){
 
@@ -63,8 +53,8 @@ int Move(int start){
         }
         x += dx[dir];
         y += dy[dir];
-        cnt++;
         if(!InRange(x, y)) break;
+        cnt++;
     }
     return cnt;
 }
@@ -79,7 +69,7 @@ int main() {
         }
     }
     cin >> k;
-    int ans = Move(k);
+    int ans = Move(k-1);
     cout << ans;
     return 0;
 }
