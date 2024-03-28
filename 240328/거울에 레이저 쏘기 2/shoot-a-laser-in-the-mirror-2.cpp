@@ -12,11 +12,11 @@ void FindDir(int start){
     if(start / n == 0){
         dir = 0;
         x = 0;
-        y = start % n;
+        y = (start % n) -1;
     }
     else if(start / n == 1){
         dir = 1;
-        x = (start-1) % n;
+        x = (start % n) -1;
         y = n-1;
     }
     else if(start / n == 2){
