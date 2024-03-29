@@ -6,19 +6,15 @@ using namespace std;
 int n, m; // m개의 병원 선택
 int map[51][51];
 pair<int, int> hospital[13]; // 병원 위치
-pair<int, int> person[13]; // 사람 위치
+pair<int, int> person[101]; // 사람 위치
 vector<pair<int, int>> vec; // 병원 선택
 int hos_cnt; // 병원 수
 int people; // 사람 수
-// 각 개인마다 병원 까지 가는 거리 잰 다음 그 중에서 최소값 구하고 나중에 총값더하고
-// 그중에서 최솟값이 답
-int new_map[51][51]; // 선택한 병원만 있는 지도
-// (병원x - 사람 x) + (병원 y - 사람 y)
+int afshadfhdg[51][51];
 int global_sum = 100000;
 
 void dfs(int cur, int hos)
 {
-
     if (hos == hos_cnt || cur == m)
     {
         if (cur != m) return;
