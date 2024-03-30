@@ -71,7 +71,7 @@ void dfs(int cur, int idx)
 			}
 		}
 
-		int temp = INT_MIN;
+		int temp = 0;
 		for (int j = 0; j < n; j++)
 		{
 			for (int k = 0; k < n; k++)
@@ -81,8 +81,6 @@ void dfs(int cur, int idx)
 				step[j][k] = 0;
 			}
 		}
-
-		
 		if (ans > temp) ans = temp;
 		sig = 1;
 		return;
