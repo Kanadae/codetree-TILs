@@ -33,6 +33,7 @@ int main() {
     cin >> n;
     cin >> r1 >>c1 >> r2 >> c2;
     r1--; c1--; r2--; c2--;
+    visited[r1][c1] = true;
     q.push(make_pair(r1,c1));
     bfs();
     if (visited[r2][c2] == false) cout << -1;
