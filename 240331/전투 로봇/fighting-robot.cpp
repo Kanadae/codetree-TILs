@@ -6,7 +6,7 @@
 #include <utility>
 using namespace std;
 
-int n , r, c; // 격자 칸, 시작 행, 시작 열
+int n, r, c; // 격자 칸, 시작 행, 시작 열
 int map[21][21];
 int step[21][21];
 int level = 2; // 현재 레벨
@@ -44,7 +44,7 @@ void bfs()
 
 			step[nx][ny] = step[x][y] + 1;
 
-			if (map[nx][ny]!= 0 && map[nx][ny] < level)
+			if (map[nx][ny] != 0 && map[nx][ny] < level)
 			{
 				sig = 1;
 				vec.push_back(make_pair(nx, ny));
@@ -57,7 +57,7 @@ void bfs()
 		}
 	}
 
-	
+
 }
 
 int main()
@@ -92,7 +92,7 @@ int main()
 			{
 				min_v.clear(); // 최소 좌표들 초기화
 				temp_min_step = step[x][y];
-				min_v.push_back(make_pair(x,y));
+				min_v.push_back(make_pair(x, y));
 			}
 			else if (temp_min_step == step[x][y])
 			{
@@ -101,31 +101,18 @@ int main()
 		}
 
 		sort(min_v.begin(), min_v.end());
+		r = min_v[0].first;
+		c = min_v[0].second;
+		total += step[r][c];
+		map[r][c] = 0;
+		kill++;
 
-		for (int i = 0; i < min_v.size(); i++)
+		if (kill == level)
 		{
-			r = min_v[i].first;
-			c = min_v[i].second;
-			total += step[r][c];
-			map[r][c] = 0;
-			
-			for (int i = 0; i < n; i++)
-			{
-				for (int j = 0; j < n; j++)
-				{
-					visited[i][j] = false;
-					step[i][j] = 0;
-				}
-			}
-			q.push(make_pair(r, c));
-			bfs();
-			kill++;
-			if (kill == level)
-			{
-				kill = 0;
-				level++;
-			}
+			kill = 0;
+			level++;
 		}
+		
 		vec.clear();
 		min_v.clear();
 		for (int i = 0; i < n; i++)
