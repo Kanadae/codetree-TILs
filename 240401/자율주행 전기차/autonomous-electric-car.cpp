@@ -79,6 +79,7 @@ int main() {
                 }
             }
         }
+        if (vec.size() == 0) break;
         sort(vec.begin(), vec.end());
         int cx = vec[0].first;
         int cy = vec[0].second;
