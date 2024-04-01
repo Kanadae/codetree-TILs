@@ -79,24 +79,23 @@ int main() {
             for (int j = 0; j < n; j++)
             {
                 if (temp_map[i][j] == 0) continue;
-                map[i][j] = temp_map[i][j];
+                map[i][j] += temp_map[i][j];
                 temp_map[i][j] = 0;
             }
         }
         
 
-        if (initial != 0)
-        {
+        
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    remover[i][j]--;
+                    if (remover[i][j] > 0) remover[i][j]--;
                 }
             }
-        }
 
         initial = 1;
+
         // 3. 가장 많이 나무를 죽일 수 있는 곳에 제초제 뿌리기
         int r, c; // 제초제 뿌릴 위치
         int sig = 0;
@@ -112,13 +111,6 @@ int main() {
                     r = i; c = j;
                     continue;
                 }
-                // 전부 벽인 경우 에러 발생하지않도록
-                if (map[i][j] == -1 && sig == 0 && max_kill == 0)
-                {
-                    r = i; c = j;
-                    sig = 1;
-                    continue;
-                }
                 if (map[i][j] <= 0) continue;
                 // 나무인 경우
                 int temp_kill = map[i][j];
@@ -130,10 +122,13 @@ int main() {
                     {
                         int nx = x + ddx[d];
                         int ny = y + ddy[d];
-                        if (0 > nx || nx >= n || 0 > ny || ny >= n) continue;
-                        if (map[nx][ny] <= 0) continue;
+                        if (0 > nx || nx >= n || 0 > ny || ny >= n) break;
+                        if (map[nx][ny] <= 0) break;
                         temp_kill += map[nx][ny];
+                        
+                        x = nx; y = ny;
                     }
+                   
                 }
 
                 if (temp_kill > max_kill)
@@ -143,7 +138,7 @@ int main() {
                 }
             }
         }
-
+        
         // 4. 제초제 뿌리기
         remover[r][c] = life;
         if (map[r][c] >= 1)
