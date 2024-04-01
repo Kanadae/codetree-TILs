@@ -116,10 +116,13 @@ int main() {
                 if (map[i][j] == -1 && sig == 0 && max_kill == 0)
                 {
                     r = i; c = j;
+                    sig = 1;
                     continue;
                 }
+                if (map[i][j] <= 0) continue;
                 // 나무인 경우
                 int temp_kill = map[i][j];
+                sig = 1;
                 for (int d = 0; d < 4; d++)
                 {
                     int x = i; int y = j;
@@ -151,7 +154,7 @@ int main() {
             for (int d = 0; d < 4; d++)
             {
                 int x = r; int y = c;
-                
+                //cout << "hi " << x << " " << y;
                 for (int t = 0; t < k; t++)
                 {
                     int nx = x + ddx[d];
@@ -171,7 +174,7 @@ int main() {
             }
         }
 
-       
+        
  
     }
 
