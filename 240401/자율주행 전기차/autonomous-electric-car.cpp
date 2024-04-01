@@ -66,6 +66,7 @@ int main() {
             for (int j = 0; j < n; j++)
             {
                 if (map[i][j] != 2) continue;
+                if (visited[i][j] == false) continue;
                 if (min_step > step[i][j])
                 {
                     vec.clear(); // vec에 min_step 2주소
@@ -78,7 +79,6 @@ int main() {
                 }
             }
         }
-        
         sort(vec.begin(), vec.end());
         int cx = vec[0].first;
         int cy = vec[0].second;
@@ -106,6 +106,7 @@ int main() {
         map[cx][cy] = 0;
         int gx = goal[cx][cy].first;
         int gy = goal[cx][cy].second;
+        if (!visited[gx][gy]) break;
         if (ch < step[gx][gy])
         {
             break;
