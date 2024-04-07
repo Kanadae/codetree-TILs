@@ -82,7 +82,7 @@ void LoserMove(Player p)
 	g = 0;
 	for (int i = 0; i < 4; i++)
 	{
-		int dir = (d + 1) % 4;
+		int dir = (d + i) % 4;
 		int nx = x + dx[dir];
 		int ny = y + dy[dir];
 		if (inRange(nx, ny) && Find(nx, ny) == EMPTY)
