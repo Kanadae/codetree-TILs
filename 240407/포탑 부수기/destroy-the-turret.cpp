@@ -1,211 +1,249 @@
 #include <iostream>
-#include <algorithm>
+#include <vector>
 #include <queue>
+#include <climits>
+
 using namespace std;
 
-#define MAX_N 10
-#define MAX_M 10
-#define MAX_K 1000
-#define REI 4
-#define PO 8
+int dx[4] = { 0, 1, 0, -1 };
+int dy[4] = { 1, 0, -1, 0 };
 
+int pdx[9] = { 0, -1, -1, 0, 1, 1, 1, 0, -1 };
+int pdy[9] = { 0, 0, 1, 1, 1, 0, -1, -1, -1 };
+
+int map[10][10];
 int n, m, k;
+int history[10][10];
+int visited[10][10];
 int turn = 1;
-int ad[MAX_K+1][11][11];
-int history[11][11]; // 값이 클수록 최근 공격
+int back_x[10][10];
+int back_y[10][10];
 
-int step[10][10]; // 최단경로
-int rei_dx[4] = { 0,1,0,-1 };
-int rei_dy[4] = { 1,0,-1,0 };
-int po_dx[8] = { -1,-1,0,1,1,1,0,-1 };
-int po_dy[8] = { 0,1,1,1,0,-1,-1,-1 };
+int active[10][10];
 
-int back_x[11][11]; int back_y[11][11];
-bool visited[11][11];
-int is_active[MAX_K+1][11][11];
-
-pair<int,int> choice_attacker()
+void attack()
 {
-	int min_ad = 50000;
-	int mini, minj;
+	int min_AD = INT_MAX;
+	int ax, ay;
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 		{
-			if (ad[turn - 1][i][j] == 0) continue;
-			if (ad[turn - 1][i][j] < min_ad)
+			if (map[i][j] == 0) continue;
+			if (map[i][j] < min_AD)
 			{
-				min_ad = ad[turn - 1][i][j];
-				mini = i; minj = j;
+				min_AD = map[i][j];
+				ax = i; ay = j;
 			}
-			else if (ad[turn - 1][i][j] == min_ad)
+			else if (map[i][j] == min_AD)
 			{
-				if (history[i][j] >= history[mini][minj])
+				if (history[i][j] > history[ax][ay])
 				{
-					mini = i; minj = j;
+					ax = i; ay = j;
+				}
+				else if (history[i][j] == history[ax][ay])
+				{
+					if (ax + ay < i + j)
+					{
+						ax = i; ay = j;
+					}
+					else if (ax + ay == i + j)
+					{
+						if (ay < j)
+						{
+							ax = i; ay = j;
+						}
+					}
 				}
 			}
 		}
-	return make_pair(mini, minj);
-}
 
-pair<int, int> victim(pair<int, int> temp)
-{
-	int max_ad = -1;
-	int maxi = -1, maxj = -1;
+	int MAX_AD = INT_MIN;
+	int vx, vy;
 	for (int i = 0; i < n; i++)
-	{
 		for (int j = 0; j < m; j++)
 		{
-			
-			if (ad[turn - 1][i][j] == 0 || make_pair(i, j) == temp) continue;
-			if (ad[turn - 1][i][j] > max_ad)
+			if (map[i][j] == 0) continue;
+			if (ax == i && ay == j) continue;
+			if (map[i][j] > MAX_AD)
 			{
-				
-				max_ad = ad[turn - 1][i][j];
-				maxi = i; maxj = j;
+				MAX_AD = map[i][j];
+				vx = i; vy = j;
 			}
-			else if (ad[turn - 1][i][j] == max_ad)
+			else if (map[i][j] == MAX_AD)
 			{
-				if (history[i][j] < history[maxi][maxj])
+				if (history[i][j] < history[vx][vy])
 				{
-					maxi = i; maxj = j;
+					MAX_AD = map[i][j];
+					vx = i; vy = j;
+				}
+				else if (history[i][j] == history[vx][vy])
+				{
+					if (i + j < vx + vy)
+					{
+						vx = i; vy = j;
+					}
+					else if (i + j == vx + vy)
+					{
+						if (j < vy)
+						{
+							vx = i; vy = j;
+						}
+					}
 				}
 			}
 		}
-		
-	}
-	return make_pair(maxi, maxj);
-}
-
-int attack()
-{
+	//cout << ax << " " << ay << " " << vx << " " << vy;
+	map[ax][ay] += m + n;
+	active[ax][ay] = 1; active[vx][vy] = 1;
+	history[ax][ay] = turn;
+	int razer = 0;
 	queue<pair<int, int>> q;
-	pair<int, int> temp = choice_attacker();
-	pair<int, int> vic = victim(temp);
-	int sx = temp.first; int sy = temp.second;
-	
-	ad[turn - 1][sx][sy] += n + m;
-	history[sx][sy] = turn;
-	int ex = vic.first; int ey = vic.second;
-	if (ex == -1 || ey == -1)
-	{
-		ad[turn - 1][sx][sy] -= n + m;
-		k = 0;
-		return ad[turn - 1][sx][sy];
-	}
-	is_active[turn - 1][sx][sy] = 1;
-	is_active[turn - 1][ex][ey] = 1;
-	
-	int is_rei = 0;
-	q.push(make_pair(sx, sy));
+	q.push(make_pair(ax, ay));
 	while (!q.empty())
 	{
 		int x = q.front().first;
 		int y = q.front().second;
 		q.pop();
-		if (x == ex && y == ey)
+		if (x == vx && y == vy)
 		{
-			is_rei = 1;
+			razer = 1;
 			break;
 		}
 		for (int i = 0; i < 4; i++)
 		{
-			int nx = x + rei_dx[i];
-			int ny = y + rei_dy[i];
-			if (nx == n) nx = 0;
-			else if (nx == -1) nx = n - 1;
-			if (ny == m) ny = 0;
-			else if (ny == -1) ny = m - 1;
-			if (!ad[turn - 1][nx][ny] || visited[nx][ny]) continue;
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (nx < 0) nx = n - 1;
+			else if (nx >= n) nx = 0;
+			if (ny < 0) ny = m - 1;
+			else if (ny >= m) ny = 0;
+			if (map[nx][ny] == 0) continue;
+			if (visited[nx][ny]) continue;
 			visited[nx][ny] = true;
+			back_x[nx][ny] = x;
+			back_y[nx][ny] = y;
 			q.push(make_pair(nx, ny));
-			back_x[nx][ny] = x; back_y[nx][ny] = y;
 		}
 	}
 
-	if (is_rei)
+	if (razer == 1)
 	{
-		ad[turn - 1][ex][ey] -= ad[turn - 1][sx][sy];
-		if (ad[turn - 1][ex][ey] <= 0)
+		int x = vx; int y = vy;
+		while (!(x == ax && y == ay))
 		{
-			ad[turn - 1][ex][ey] = 0;
-		}
-
-		int x = back_x[ex][ey]; int y = back_y[ex][ey];
-		while (!(x == sx && y == sy))
-		{
-			ad[turn - 1][x][y] -= ad[turn - 1][sx][sy] / 2;
-			is_active[turn - 1][x][y] = 1;
-			if (ad[turn - 1][x][y] < 0)
+			if (x == vx && y == vy)
 			{
-				ad[turn - 1][x][y] = 0;
+				map[x][y] -= map[ax][ay];
+				if (map[x][y] < 0) map[x][y] = 0;
+				active[x][y] = 1;
 			}
-			int nx = back_x[x][y]; int ny = back_y[x][y];
+			else
+			{
+				map[x][y] -= (map[ax][ay] / 2);
+				if (map[x][y] < 0) map[x][y] = 0;
+				active[x][y] = 1;
+			}
+			int nx = back_x[x][y];
+			int ny = back_y[x][y];
 			x = nx;
 			y = ny;
 		}
 	}
 
-	if (!is_rei)
+	else if (razer == 0)
 	{
-		ad[turn - 1][ex][ey] -= ad[turn - 1][sx][sy];
-		for (int i = 0; i < PO; i++)
+		int x = vx; int y = vy;
+		for (int i = 0; i < 9; i++)
 		{
-			int x = (ex + po_dx[i] + n) % n;
-			int y = (ey + po_dy[i] + m) % m;
-			if (x == sx && y == sy) continue;
-			if (ad[turn - 1][x][y] == 0) continue;
-			ad[turn - 1][x][y] -= ad[turn - 1][sx][sy] / 2;
-			if (ad[turn - 1][x][y] <= 0) ad[turn - 1][x][y] = 0;
-			is_active[turn - 1][x][y] = 1;
+			int nx = x + pdx[i];
+			int ny = y + pdy[i];
+			if (nx < 0) nx = n - 1;
+			else if (nx >= n) nx = 0;
+			if (ny < 0) ny = m - 1;
+			else if (ny >= m) ny = 0;
+			if (map[nx][ny] == 0) continue;
+			if (nx == ax && ny == ay) continue;
+			if (nx == vx && ny == vy)
+			{
+				map[nx][ny] -= map[ax][ay];
+			}
+			else map[nx][ny] -= (map[ax][ay] / 2);
+			if (map[nx][ny] < 0) map[nx][ny] = 0;
+			active[nx][ny] = 1;
 		}
 	}
 
+}
+
+pair<int,int> count()
+{
+	int ans = 0;
+	int cnt = 0;
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 		{
-			if (ad[turn - 1][i][j] <= 0) ad[turn - 1][i][j] = 0;
-			ad[turn][i][j] = ad[turn - 1][i][j];
-			if (ad[turn][i][j] && !is_active[turn - 1][i][j])
+			if (map[i][j] == 0) continue;
+			cnt++;
+			if (active[i][j] == 0)
 			{
-				ad[turn][i][j]++;
+				map[i][j]++;
+			}
+			if (map[i][j] > ans)
+			{
+				ans = map[i][j];
 			}
 		}
-	int potap = 0;
-	int max_ad = 0;
+
+	return make_pair(ans, cnt);
+}
+
+void init()
+{
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 		{
-			int t_ad = ad[turn][i][j];
-			if (t_ad > 0) potap++;
-			if (max_ad < t_ad) max_ad = t_ad;
 			visited[i][j] = false;
+			active[i][j] = 0;
+			back_x[i][j] = 0;
+			back_y[i][j] = 0;
 		}
-	if (potap <= 1) return max_ad;
-	return max_ad;
+}
+
+void Print()
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			cout << map[i][j] << " ";
+		}
+		cout << "\n";
+	}
 }
 
 int main()
 {
 	cin >> n >> m >> k;
 	for (int i = 0; i < n; i++)
-	{
 		for (int j = 0; j < m; j++)
 		{
-			cin >> ad[0][i][j];
+			cin >> map[i][j];
 		}
-	}
-	
-	int ans;
+
+	int ans, cnt;
 	while (turn <= k)
 	{
-		ans = attack();
-		if (ans == 0)
-		{
-			cout << 0;
-			return 0;
-		}
+		//cout << turn << "턴\n";
+		//Print();
+		attack();
+		pair<int, int> temp = count();
+		ans = temp.first; cnt = temp.second;
+		if (cnt <= 1) break;
+		init();
 		turn++;
+		//cout << turn << "턴\n";
+		//Print();
 	}
+
 	cout << ans;
 }
