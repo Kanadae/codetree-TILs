@@ -60,43 +60,38 @@ void Move()
 {
     for (int i = 0; i < m; i++)
     {
-        if (people[i] == make_pair(-1, -1)) continue;
+        init();
+        if (people[i] == make_pair(-1, -1)) break;
         if (people[i] == cvs_list[i]) continue;
         int goal_x = cvs_list[i].first;
         int goal_y = cvs_list[i].second;
-        //cout << goal_x << " " << goal_y << " 하..";
         int min_dist = INT_MAX;
         int min_x = -1; int min_y = -1;
         int x = people[i].first;
         int y = people[i].second;
-        //cout << x << " " << y << "왜ㅐㅐㅐ";
+        q.push(make_pair(goal_x, goal_y));
+        visited[goal_x][goal_y] = true;
+        step[goal_x][goal_y] = 0;
+        bfs();
         for (int d = 0; d < 4; d++)
         {
             int nx = x + dx[d];
             int ny = y + dy[d];
-            //cout << nx << " " << ny << "으아아\n";
-            init();
-            if (canGo(nx, ny))
+            if (inRange(nx, ny) && visited[nx][ny] == true)
             {
                 if (nx == goal_x && ny == goal_y)
                 {
-                    //cout << "??";
                     min_x = goal_x; min_y = goal_y;
                     break;
                 }
-                q.push(make_pair(nx, ny));
-                init();
-                bfs();
-                if (min_dist > step[goal_x][goal_y])
+                if (min_dist > step[nx][ny])
                 {
-                    
-                    min_dist = step[goal_x][goal_y];
+                    min_dist = step[nx][ny];
                     min_x = nx; min_y = ny;
                 }
             }
-            init();
         }
-        //cout << min_x << " " << min_y << "\n";
+        
         people[i] = make_pair(min_x, min_y);
         init();
     }
@@ -114,6 +109,7 @@ void goCamp()
     int wy = cvs_list[cur_t].second;
     q.push(make_pair(wx, wy));
     init();
+    visited[wx][wy] = true;
     bfs();
     int min_dist = INT_MAX;
     int min_x = -1; int min_y = -1;
@@ -121,7 +117,7 @@ void goCamp()
     {
         for (int j = 0; j < n; j++)
         {
-            if (map[i][j] != 1) continue;
+            if (map[i][j] != 1 || !visited[i][j]) continue;
             if (step[i][j] < min_dist)
             {
                 min_dist = step[i][j];
@@ -129,9 +125,10 @@ void goCamp()
             }
         }
     }
+   
     people[cur_t] = make_pair(min_x, min_y);
     map[min_x][min_y] = 2;
-    
+    init();
 }
 
 void simulate()
