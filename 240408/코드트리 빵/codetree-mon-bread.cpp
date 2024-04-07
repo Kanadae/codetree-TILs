@@ -64,18 +64,23 @@ void Move()
         if (people[i] == cvs_list[i]) continue;
         int goal_x = cvs_list[i].first;
         int goal_y = cvs_list[i].second;
+        //cout << goal_x << " " << goal_y << " 하..";
         int min_dist = INT_MAX;
         int min_x = -1; int min_y = -1;
         int x = people[i].first;
         int y = people[i].second;
+        //cout << x << " " << y << "왜ㅐㅐㅐ";
         for (int d = 0; d < 4; d++)
         {
             int nx = x + dx[d];
             int ny = y + dy[d];
+            //cout << nx << " " << ny << "으아아\n";
+            init();
             if (canGo(nx, ny))
             {
                 if (nx == goal_x && ny == goal_y)
                 {
+                    //cout << "??";
                     min_x = goal_x; min_y = goal_y;
                     break;
                 }
@@ -91,7 +96,7 @@ void Move()
             }
             init();
         }
-       
+        //cout << min_x << " " << min_y << "\n";
         people[i] = make_pair(min_x, min_y);
         init();
     }
@@ -125,7 +130,6 @@ void goCamp()
         }
     }
     people[cur_t] = make_pair(min_x, min_y);
-   
     map[min_x][min_y] = 2;
     
 }
@@ -133,7 +137,6 @@ void goCamp()
 void simulate()
 {
     Move();
-
     goCamp();
 
 }
