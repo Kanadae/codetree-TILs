@@ -70,6 +70,7 @@ void getGun(Player p)
 	gun[x][y].push_back(g);
 	sort(gun[x][y].rbegin(), gun[x][y].rend());
 	int new_gun = gun[x][y][0];
+	gun[x][y].erase(gun[x][y].begin());
 	Update(make_tuple(num, x, y, d, a, new_gun));
 }
 
