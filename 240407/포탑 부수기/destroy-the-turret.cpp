@@ -11,8 +11,8 @@ using namespace std;
 
 int n, m, k;
 int turn = 1;
-int ad[MAX_K+1][10][10];
-int history[10][10]; // 값이 클수록 최근 공격
+int ad[MAX_K+1][11][11];
+int history[11][11]; // 값이 클수록 최근 공격
 
 int step[10][10]; // 최단경로
 int rei_dx[4] = { 0,1,0,-1 };
@@ -20,9 +20,9 @@ int rei_dy[4] = { 1,0,-1,0 };
 int po_dx[8] = { -1,-1,0,1,1,1,0,-1 };
 int po_dy[8] = { 0,1,1,1,0,-1,-1,-1 };
 
-int back_x[10][10]; int back_y[10][10];
-bool visited[10][10];
-int is_active[MAX_K+1][10][10];
+int back_x[11][11]; int back_y[11][11];
+bool visited[11][11];
+int is_active[MAX_K+1][11][11];
 
 pair<int,int> choice_attacker()
 {
@@ -48,16 +48,19 @@ pair<int,int> choice_attacker()
 	return make_pair(mini, minj);
 }
 
-pair<int, int> victim(pair<int,int> temp)
+pair<int, int> victim(pair<int, int> temp)
 {
 	int max_ad = -1;
-	int maxi, maxj;
+	int maxi = -1, maxj = -1;
 	for (int i = 0; i < n; i++)
+	{
 		for (int j = 0; j < m; j++)
 		{
+			
 			if (ad[turn - 1][i][j] == 0 || make_pair(i, j) == temp) continue;
 			if (ad[turn - 1][i][j] > max_ad)
 			{
+				
 				max_ad = ad[turn - 1][i][j];
 				maxi = i; maxj = j;
 			}
@@ -69,6 +72,8 @@ pair<int, int> victim(pair<int,int> temp)
 				}
 			}
 		}
+		
+	}
 	return make_pair(maxi, maxj);
 }
 
@@ -78,12 +83,19 @@ int attack()
 	pair<int, int> temp = choice_attacker();
 	pair<int, int> vic = victim(temp);
 	int sx = temp.first; int sy = temp.second;
+	
 	ad[turn - 1][sx][sy] += n + m;
 	history[sx][sy] = turn;
 	int ex = vic.first; int ey = vic.second;
+	if (ex == -1 || ey == -1)
+	{
+		ad[turn - 1][sx][sy] -= n + m;
+		k = 0;
+		return ad[turn - 1][sx][sy];
+	}
 	is_active[turn - 1][sx][sy] = 1;
 	is_active[turn - 1][ex][ey] = 1;
-	//cout << sx << " " << sy << "\n" << ex << " " << ey << "\n";
+	
 	int is_rei = 0;
 	q.push(make_pair(sx, sy));
 	while (!q.empty())
@@ -159,17 +171,17 @@ int attack()
 				ad[turn][i][j]++;
 			}
 		}
-	int sig = 0;
-	int max_ad = -1;
+	int potap = 0;
+	int max_ad = 0;
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 		{
 			int t_ad = ad[turn][i][j];
-			if (t_ad > 0) sig = 1;
+			if (t_ad > 0) potap++;
 			if (max_ad < t_ad) max_ad = t_ad;
 			visited[i][j] = false;
 		}
-	if (sig == 0) return 0;
+	if (potap <= 1) return max_ad;
 	return max_ad;
 }
 
