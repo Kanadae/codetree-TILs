@@ -82,11 +82,12 @@ void LoserMove(Player p)
 	g = 0;
 	for (int i = 0; i < 4; i++)
 	{
-		int nx = x + dx[(d + i) % 4];
-		int ny = y + dy[(d + i) % 4];
+		int dir = (d + 1) % 4;
+		int nx = x + dx[dir];
+		int ny = y + dy[dir];
 		if (inRange(nx, ny) && Find(nx, ny) == EMPTY)
 		{
-			Update(make_tuple(num, nx, ny, d, a, g));
+			Update(make_tuple(num, nx, ny, dir, a, g));
 			getGun(player[num]);
 			break;
 		}
