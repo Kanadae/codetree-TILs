@@ -74,16 +74,24 @@ void Move()
             int ny = y + dy[d];
             if (canGo(nx, ny))
             {
+                if (nx == goal_x && ny == goal_y)
+                {
+                    min_x = goal_x; min_y = goal_y;
+                    break;
+                }
                 q.push(make_pair(nx, ny));
+                init();
                 bfs();
                 if (min_dist > step[goal_x][goal_y])
                 {
+                    
                     min_dist = step[goal_x][goal_y];
                     min_x = nx; min_y = ny;
                 }
             }
             init();
         }
+       
         people[i] = make_pair(min_x, min_y);
         init();
     }
@@ -100,6 +108,7 @@ void goCamp()
     int wx = cvs_list[cur_t].first;
     int wy = cvs_list[cur_t].second;
     q.push(make_pair(wx, wy));
+    init();
     bfs();
     int min_dist = INT_MAX;
     int min_x = -1; int min_y = -1;
@@ -116,7 +125,7 @@ void goCamp()
         }
     }
     people[cur_t] = make_pair(min_x, min_y);
-    
+   
     map[min_x][min_y] = 2;
     
 }
@@ -124,7 +133,9 @@ void goCamp()
 void simulate()
 {
     Move();
+
     goCamp();
+
 }
 
 int main()
