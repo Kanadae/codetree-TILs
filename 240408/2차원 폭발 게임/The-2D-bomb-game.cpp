@@ -73,6 +73,7 @@ void CopyResult(int col){
     int result_idx = end_of_column - 1;
     for(int i=n-1; i>=0; i--){
         if(result_idx >= 0) bomb2[i][col] = bomb1[result_idx--];
+        else bomb2[i][col] = BLANK;
     }
 }
 
