@@ -45,7 +45,7 @@ void MoveToTemp(){
 // bomb1의 폭탄에서 m이상 연속인 부분은 터트림
 void Explode(){
     bool did_explode = true;
-    
+
     while(did_explode){
         did_explode = false;
 
@@ -167,3 +167,7 @@ int main() {
     cout << ans;
     return 0;
 }
+
+/*
+    좀 헷갈려서 나중에 다시 해보자..
+*/
