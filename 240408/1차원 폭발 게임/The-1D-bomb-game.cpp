@@ -70,6 +70,6 @@ int main() {
     }
 
     cout << end_of_array << "\n";
-    for(int i=0; i<end_of_array; i++) cout << bomb[i] << " ";
+    for(int i=0; i<end_of_array; i++) cout << bomb[i] << "\n";
     return 0;
 }
