@@ -71,8 +71,8 @@ void Move()
                         }
                     }
                 }
-                if (!(min_x == i && min_y == j)) walk++;
-                next_people[min_x][min_y] = people[i][j];
+                if (!(min_x == i && min_y == j)) walk += people[i][j];
+                next_people[min_x][min_y] += people[i][j];
             }
         }
 
@@ -102,13 +102,17 @@ void Rotate()
             int ox = y; int oy = square_size - x - 1;
             next_maze[ox + SX][oy + SY] = maze[i][j];
             next_people[ox + SX][oy + SY] = people[i][j];
-            if (make_pair(i, j) == EXIT)
-            {
-                NEXT_EXIT = make_pair(ox + SX, oy + SY);
-            }
         }
-    //cout << NEXT_EXIT.first << " " << NEXT_EXIT.second << " 다음 출구\n";
-    EXIT = NEXT_EXIT;
+    int x = EXIT.first;
+    int y = EXIT.second;
+    if (SX <= x && x < SX + square_size && SY <= y && y < SY + square_size)
+    {
+        int ox = x - SX; int oy = y - SY;
+        int rx = oy, ry = square_size - ox - 1;
+        EXIT = make_pair(rx + SX, ry + SY);
+    }
+
+    
     for (int i = SX; i < SX + square_size; i++)
     {
         for (int j = SY; j < SY + square_size; j++)
@@ -170,10 +174,6 @@ int main() {
     {
         // 참가자 이동
         Move();
-        // 회전
-        FindMin();
-        Rotate();
-
         int p = 0;
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
@@ -181,6 +181,12 @@ int main() {
                 p += people[i][j];
             }
         if (p == 0) break;
+        // 회전
+        FindMin();
+        Rotate();
+
+        //cout << EXIT.first << " " << EXIT.second << " 출구\n";
+        
     }
 
     cout << walk << "\n";
