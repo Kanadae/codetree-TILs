@@ -44,19 +44,23 @@ void MoveToTemp(){
 
 // bomb1의 폭탄에서 m이상 연속인 부분은 터트림
 void Explode(){
-    bool did_explode = false;
+    bool did_explode = true;
+    
+    while(did_explode){
+        did_explode = false;
 
-    for(int cur_idx = 0; cur_idx<end_of_column; cur_idx++){
-        if(bomb1[cur_idx] == 0) continue;
+        for(int cur_idx = 0; cur_idx<end_of_column; cur_idx++){
+            if(bomb1[cur_idx] == 0) continue;
 
-        int end_idx = GetEndOfExplosion(cur_idx, bomb1[cur_idx]);
+            int end_idx = GetEndOfExplosion(cur_idx, bomb1[cur_idx]);
 
-        if(end_idx - cur_idx + 1 >= m) {
-            did_explode = true;
-            FillZero(cur_idx, end_idx);
+            if(end_idx - cur_idx + 1 >= m) {
+                did_explode = true;
+                FillZero(cur_idx, end_idx);
+            }
         }
+        MoveToTemp();
     }
-    MoveToTemp();
 }
 
 // rotate 이후에 중력으로 가라앉히고 그 열의 폭탄을 bomb1에 담음
