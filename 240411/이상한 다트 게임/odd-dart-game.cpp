@@ -16,7 +16,7 @@ void Print()
     cout << "\n";
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= n; j++)
+        for (int j = 1; j <= m; j++)
         {
             cout << map[i][j] << " ";
         }
@@ -33,7 +33,7 @@ void rotate(int x, int d, int k)
             for (int i = 1; i <= n; i++)
             {
                 if (i % x != 0) continue;
-                int temp = map[i][n];
+                int temp = map[i][m];
                 for (int j = m; j >= 2; j--)
                 {
                     map[i][j] = map[i][j-1];
@@ -51,13 +51,14 @@ void rotate(int x, int d, int k)
             for (int i = 1; i <= n; i++)
             {
                 if (i % x != 0) continue;
-                int temp = map[i][1];
+                int tmp = map[i][1];
                 for (int j = 1; j <= m-1; j++)
                 {
                     map[i][j] = map[i][j+1];
                 }
-                map[i][m] = temp;
+                map[i][m] = tmp;
             }
+            //Print();
         }
     }
 
@@ -161,11 +162,17 @@ int main() {
     {
         int x, d, k;
         cin >> x >> d >> k;
+        //Print();
         rotate(x,d,k);
+        //cout << k << "번 회전 후\n";
+        //Print();
         if (!calc())
         {
+            //cout << "정규화\n";
             regulaze();
         }
+        //cout << "계산후\n";
+        //Print();
     }
 
     int ans = 0;
