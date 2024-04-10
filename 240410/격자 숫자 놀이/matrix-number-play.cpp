@@ -127,11 +127,11 @@ int main()
     
     while (t < 100)
     {
+        if (map[r][c] == k) break;
         t++;
         simulate();
         //cout << t << "초\n";
         //Print();
-        if (map[r][c] == k) break;
     }
 
     if (map[r][c] == k) cout << t;
