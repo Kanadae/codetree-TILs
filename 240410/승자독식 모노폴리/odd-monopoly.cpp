@@ -155,7 +155,7 @@ int main()
             if (temp > 0)
             {
                 cur_player[temp]= make_pair(i,j); // 플레이어번호와 좌표
-                monopoly[i][j] = make_pair(1 + k, temp); // 턴, 플레이어
+                monopoly[i][j] = make_pair(k, temp); // 턴, 플레이어
                 map[i][j].push_back(temp);
             }
         }
