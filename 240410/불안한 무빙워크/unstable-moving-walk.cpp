@@ -16,8 +16,9 @@ bool checkSafe()
         for (int j = 1; j <= n; j++)
         {
             if (map[i][j] == 0) danger++;
+            //cout << map[i][j] << " ";
         }
-        
+        //cout <<"\n";
     }
     return danger < k;
 }
@@ -28,7 +29,6 @@ void rotate()
     temp[0] = map[1][n]; // 5
     temp[1] = map[2][n]; // 6
     temp[2] = map[2][1]; // 10
-
     for (int i = n; i >= 2; i--)
     {
         temp_map[1][i] = map[1][i-1];
@@ -40,7 +40,7 @@ void rotate()
     }
     temp_map[2][n] = temp[0];
     temp_map[1][1] = temp[2];  
-
+    
     for (int i = 1; i <=2 ; i++)
     {
         for (int j = 1; j <= n; j++)
@@ -68,7 +68,8 @@ void Ride()
     for (int i = n; i >= 2; i--)
     {
         if (map[1][i] == 0 || people[i] || !people[i-1]) continue;
-        people[i] = people[i-1];
+        people[i] = 1;
+        people[i-1] = 0;
         map[1][i]--;
     }
     if (map[1][1] > 0 && people[1] == 0)
@@ -95,7 +96,6 @@ void simulate()
 {
     // 무빙워크 회전
     rotate();
-    //Print();
     // 사람 탑승
     Ride();
 }
