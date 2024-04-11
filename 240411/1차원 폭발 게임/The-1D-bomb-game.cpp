@@ -85,7 +85,10 @@ int main()
 		copytemp();
 
 	} while (is_bombed);
-
+	if (m == 1)
+	{
+		n = 0;
+	}
 	cout << n << "\n";
 	for (int i = 0; i < n; i++)
 	{
