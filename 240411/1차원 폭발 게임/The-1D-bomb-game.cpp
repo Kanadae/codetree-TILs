@@ -76,10 +76,8 @@ int main()
 			}
 			else
 			{
-				makeZero(start, end);
-				start = end + 1;
+				start = start + 1;
 				end = start;
-				is_bombed = true;
 			} 
 		}
 		copytemp();
