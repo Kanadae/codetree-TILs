@@ -60,6 +60,7 @@ int main()
 				{
 					break;
 				}
+				//cout << " hello ";
 				end++;
 			}
 			if (start == end)
@@ -67,7 +68,7 @@ int main()
 				start = start + 1;
 				end = start;
 			}
-			else if (start - end == m)
+			else if (end - start >= m -1)
 			{
 				makeZero(start, end);
 				start = end + 1;
