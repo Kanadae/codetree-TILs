@@ -9,12 +9,14 @@ vector<pair<int,int>> base;
 pair<int,int> cvs_list[31]; // wish cvs
 pair<int,int> people[31]; // 사람 위치
 bool visited[16][16];
-int backx[16][16]; int backy[16][16];
+
 int step[16][16];
 int dx[4] = {-1,0,0,1}; // 우선순위
 int dy[4] = {0,-1,1,0};
 int debugp[16][16];
 queue<pair<int,int>> qu;
+pair<int,int> startcamp;
+
 void Print()
 {
     for (int i = 0; i < m; i++)
@@ -35,6 +37,19 @@ void Print()
     cout <<"\n";
 }
 
+void Printmap()
+{
+    cout << "map \n";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << map[i][j] << " ";
+        }
+        cout << "\n";
+    }
+}
+
 bool inRange(int x,int y)
 {
     return 0 <= x && x < n && 0 <= y && y < n;
@@ -52,7 +67,7 @@ void bfs()
             int nx = x + dx[i];
             int ny = y + dy[i];
             if (!inRange(nx,ny)) continue;
-            if (visited[nx][ny] || map[nx][ny]) continue;
+            if (visited[nx][ny] || map[nx][ny] == 1) continue;
             visited[nx][ny] = true;
             qu.push(make_pair(nx,ny));
             step[nx][ny] = step[x][y] + 1;
@@ -62,8 +77,17 @@ void bfs()
 
 void Move(int t)
 {
+    if (t == 0) return;
     for (int i = 0; i < m; i++)
     {
+        for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    visited[i][j] = false;
+                    step[i][j] = 0;
+                }
+            }
         if (people[i].first == -1) break;
         int wx = cvs_list[i].first; int wy = cvs_list[i].second;
         int cx = people[i].first; int cy = people[i].second;
@@ -108,7 +132,7 @@ void Move(int t)
                 }
             }
         }
-        
+        //cout << mindist << "\n";
         people[i].first = minx; people[i].second = miny;
         if (minx == wx && miny == wy)
         {
@@ -123,6 +147,10 @@ void Move(int t)
                 step[i][j] = 0;
             }
         }
+    }
+    if (t < m)
+    {
+        map[startcamp.first][startcamp.second] = 1;
     }
 }
 
@@ -164,6 +192,19 @@ void goCamp(int t)
                 }
             }
             int tempdist = step[wx][wy];
+            if (step[wx][wy] == 0)
+            {
+                for (int i = 0; i < n; i ++)
+                {
+                    for (int j = 0; j < n ; j++)
+                    {
+                        visited[i][j] = false;
+                        step[i][j] = 0;
+                    }
+                }
+                continue;
+            }
+
             if (tempdist < mindist)
             {
                 mindist = tempdist;
@@ -180,7 +221,9 @@ void goCamp(int t)
         }
         people[t].first = base[nearbase].first;
         people[t].second = base[nearbase].second;
-        map[people[t].first][people[t].second] = 1;
+        //map[people[t].first][people[t].second] = 1;
+        startcamp.first = people[t].first;
+        startcamp.second = people[t].second;
         base.erase(base.begin()+nearbase);
     }
 }
@@ -232,6 +275,8 @@ int main() {
                 break;
             }
         }
+        //Printmap();
+        //cout <<"\n";
         //Print();
     }
 
