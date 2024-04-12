@@ -134,10 +134,6 @@ void Move(int t)
         }
         //cout << mindist << "\n";
         people[i].first = minx; people[i].second = miny;
-        if (minx == wx && miny == wy)
-        {
-            map[minx][miny] = 1;
-        }
 
         for (int i = 0; i < n; i++)
         {
@@ -148,10 +144,17 @@ void Move(int t)
             }
         }
     }
-    if (t < m)
+    
+    for (int i = 0; i < m; i++)
     {
-        map[startcamp.first][startcamp.second] = 1;
+        int wx = cvs_list[i].first;
+        int wy = cvs_list[i].second;
+        if (wx == people[i].first && wy == people[i].second)
+        {
+            map[wx][wy] = 1;
+        }
     }
+
 }
 
 void goCamp(int t)
@@ -221,7 +224,7 @@ void goCamp(int t)
         }
         people[t].first = base[nearbase].first;
         people[t].second = base[nearbase].second;
-        //map[people[t].first][people[t].second] = 1;
+        map[people[t].first][people[t].second] = 1;
         startcamp.first = people[t].first;
         startcamp.second = people[t].second;
         base.erase(base.begin()+nearbase);
