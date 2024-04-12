@@ -25,9 +25,11 @@ void mPrint()
             int cnt = 0;
             for (int k = 0; k < 8; k++)
             {
-
+                cnt += monster[turn][i][j][k];
             }
+            cout << cnt << " ";
         }
+        cout << "\n";
     }
 }
 
@@ -71,7 +73,7 @@ void movem()
                 }
                 if (sign == 0)
                 {
-                    monster[turn][i][j][d] = monster[turn-1][i][j][d];
+                    monster[turn][i][j][d] += monster[turn-1][i][j][d];
                 }
             }
         }
@@ -169,8 +171,13 @@ void simulate()
     copym();
     // 몬스터 이동
     movem();
+    //();
+    //cout << "\n";
     // 팩맨 이동
     movep();
+    //cout << "이동 후 \n";
+    //mPrint();
+    //cout <<"\n";
     // 알 부화
     birth();
 }
