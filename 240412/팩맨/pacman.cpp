@@ -65,7 +65,7 @@ void movem()
                 {
                     int td = (d + k) % 8;
                     int nx = i + dx[td]; int ny = j + dy[td];
-                    if (!inRange(nx,ny) || dead[nx][ny] >= turn
+                    if (!inRange(nx,ny) || dead[nx][ny] > turn
                     || (nx == px && ny == py)) continue;
                     monster[turn][nx][ny][td] += monster[turn-1][i][j][d];
                     sign = 1;
