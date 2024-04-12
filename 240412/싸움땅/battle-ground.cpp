@@ -11,8 +11,29 @@ int pdx[4] = {-1,0,1,0};
 int pdy[4] = {0,1,0,-1};
 int score[30];
 Player player[30];
-vector<int> map[21][21]; // 각 맵에 존재하는 사람들의 인덱스
-vector<int> newmap[21][21];
+int map[21][21];
+
+void Print()
+{
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) map[i][j] = 0;
+    for (int i = 0; i < m; i++)
+    {
+        int x,y;
+        tie(x,y,ignore,ignore,ignore) = player[i];
+        map[x][y] = i + 1;
+    }
+
+    for (int i = 0; i < n; i++)
+    {    for (int j = 0; j < n; j++)
+        {
+            cout << map[i][j] << " ";
+
+        }
+        cout << "\n";    
+    }
+    cout <<"\n";
+}
 
 bool inRange(int x, int y)
 {
@@ -27,6 +48,7 @@ Player getgun(Player p)
     a = 0;
     sort(gun[x][y].rbegin(), gun[x][y].rend());
     a = gun[x][y][0];
+    gun[x][y].erase(gun[x][y].begin(), gun[x][y].begin()+1);
     return {x,y,d,s,a};
 }
 
@@ -75,9 +97,11 @@ void winmove(int winner)
 }
 
 void fight(int p1, int p2)
-{
+{   
+    //cout << p1 + 1 << " " <<p2 +1 << "대전 상대\n";
     int x1,y1,d1,s1,a1; int x2,y2,d2,s2,a2;
     tie(x1,y1,d1,s1,a1) = player[p1]; tie(x2,y2,d2,s2,a2) = player[p2];
+    //cout <<   "싸움 점수 "<< s1 << " " << a1 << " " << s2 << " " << a2 <<"\n";
     int tempscore = abs((s1+a1) - (s2 + a2));
     int winner; int loser;
     if (s1+a1 > s2+a2)
@@ -168,12 +192,12 @@ int main() {
         cin >> x >> y >> d >> s;
         x--; y--;
         player[i] = make_tuple(x,y,d,s,a);
-        map[x][y].push_back(i);
     }
 
     while (k--)
     {
         simulate();
+        //Print();
     }
 
     for (int i = 0; i < m; i++)
