@@ -74,6 +74,7 @@ void Move(int t)
             int nx = cx + dx[d];
             int ny = cy + dy[d];
             if (!inRange(nx,ny)) continue;
+            if (map[nx][ny] == 1) continue;
             if (nx == wx && ny == wy)
             {
                 minx = nx; miny = ny; break;
@@ -107,7 +108,6 @@ void Move(int t)
                 }
             }
         }
-        
         
         people[i].first = minx; people[i].second = miny;
         if (minx == wx && miny == wy)
