@@ -6,6 +6,7 @@ int map[21][21];
 int dx[4] = {0,1,0,-1};
 int dy[4] = {1,0,-1,0}; // 우,하,좌,상
 int u = 1, f = 2, r = 3;
+int tu, tf, tr;
 int dir = 0; // 현재 방향
 int curx = 0, cury = 0; // 현재 위치
 int d; // 아랫면
@@ -49,25 +50,31 @@ void simulate()
     // 주사위 굴리기
     if (dir == 0) // 우
     {
-        u = 7-r;
-        f = f;
-        r = u;
+        tu = 7-r;
+        tf = f;
+        tr = u;
     } else if (dir == 1)
     {
-        u = 7 - f;
-        f = u;
-        r = r;
+        tu = 7 - f;
+        tf = u;
+        tr = r;
     } else if (dir == 2)
     {
-        u = r;
-        f = f;
-        r = 7 - u;
+        tu = r;
+        tf = f;
+        tr = 7 - u;
     } else if (dir == 3)
     {
-        u = f;
-        f = 7-u;
-        r = r;
+        tu = f;
+        tf = 7-u;
+        tr = r;
+    } else{
+        tu = u;
+        tf = f;
+        tr = r;
     }
+
+    u = tu; f = tf; r = tr;
 
     d = 7 - u;
 
@@ -75,6 +82,7 @@ void simulate()
     temp = 1;
     q.push(make_pair(curx,cury));
     bfs();
+    //cout << d << " " << map[curx][cury]<< "\n";
     ans += temp * map[curx][cury];
     if (d > map[curx][cury])
     {
@@ -83,6 +91,7 @@ void simulate()
     {
         dir = (dir + 3) % 4;
     }
+    //cout << dir << " : 방향\n";
     int nx = curx + dx[dir];
     int ny = cury + dy[dir];
     if (!inRange(nx,ny))
