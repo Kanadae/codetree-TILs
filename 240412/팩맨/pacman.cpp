@@ -8,7 +8,7 @@ int pdx[4] = {-1, 0, 1, 0};
 int pdy[4] = {0, -1, 0, 1}; // 상 좌 하 우
 int monster[26][4][4][8]; // t턴에 있는 몬스터의 x,y,d 수
 int egg[26][4][4][8]; // 알
-int dead[4][4]; // 시체의 남은 턴 수 t
+int dead[4][4][26]; // 시체의 남은 턴 수 t
 bool visited[4][4];
 
 int n = 4;
@@ -46,7 +46,7 @@ void copym()
         {
             for (int d = 0; d < 8; d++)
             {
-                egg[turn][i][j][d] = monster[turn - 1][i][j][d];
+                egg[turn][i][j][d] += monster[turn - 1][i][j][d];
             }
         }
     }
@@ -60,12 +60,14 @@ void movem()
         {
             for (int d = 0; d < 8; d++)
             {
+                if (monster[turn-1][i][j][d] == 0) continue;
                 int sign = 0;
                 for (int k = 0; k < 8; k++)
                 {
                     int td = (d + k) % 8;
                     int nx = i + dx[td]; int ny = j + dy[td];
-                    if (!inRange(nx,ny) || dead[nx][ny] > turn
+                    if (!inRange(nx,ny) || dead[nx][ny][1] != 0 || 
+                    dead[nx][ny][0] != 0
                     || (nx == px && ny == py)) continue;
                     monster[turn][nx][ny][td] += monster[turn-1][i][j][d];
                     sign = 1;
@@ -141,12 +143,13 @@ void movep()
     //cout << maxkill;
     for (int i = 0; i < 3; i++)
     {
-        px = px + pdx[maxdir[i]]; py = py + pdy[maxdir[i]];
+        int nx = px + pdx[maxdir[i]], ny = py + pdy[maxdir[i]];
         for (int j = 0; j < 8; j++)
         {
-            monster[turn][px][py][j] = 0;
+            dead[nx][ny][2] += monster[turn][nx][ny][j];
+            monster[turn][nx][ny][j] = 0;
         }
-        dead[px][py] = turn+2;
+        px = nx; py = ny;
     }
     //cout << "px py: "<< px << " " << py;
 }
@@ -165,6 +168,21 @@ void birth()
     }
 }
 
+void decaym()
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            for (int k = 0; k < 2; k++)
+            {
+                dead[i][j][k] = dead[i][j][k+1];
+            }
+            dead[i][j][2] = 0;
+        }
+    }
+}
+
 void simulate()
 {
     // 몬스터 복제
@@ -179,6 +197,7 @@ void simulate()
     //mPrint();
     //cout <<"\n";
     // 알 부화
+    decaym();
     birth();
 }
 
@@ -192,11 +211,11 @@ int main() {
         monster[0][r][c][d]++;
     }
 
-    turn = 0;
-    while (turn < t)
+    turn = 1;
+    while (turn <= t)
     {
-        turn++;
         simulate();
+        turn++;
     }
 
     int ans = 0;
