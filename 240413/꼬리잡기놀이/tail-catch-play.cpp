@@ -54,7 +54,7 @@ void Move()
 			for (int d = 0; d < 4; d++)
 			{
 				int nx = hx + dx[d]; int ny = hy + dy[d];
-				if (map[nx][ny] == 2 || map[nx][ny] == 3)
+				if (map[nx][ny] == 2)
 				{
 					if (d < 2) ld = d += 2;
 					else ld = d -= 2;
@@ -189,7 +189,7 @@ void Throw()
 	for (int d = 0; d < 4; d++)
 	{
 		int nx = hx + dx[d]; int ny = hy + dy[d];
-		if (map[nx][ny] == 2 || map[nx][ny] == 3)
+		if (map[nx][ny] == 2)
 		{
 			ld = d;
 			break;
